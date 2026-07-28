@@ -9,6 +9,8 @@ export default function Home() {
        <HeroCard/>
        {/* TODO: Add coursale of categories with images */}
        <GearContainer/>
+        {/* TODO: Add Steps Section */}
+        {/* TODO: Add Reviews Section*/}
        
     </div>
   );

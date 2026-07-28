@@ -83,8 +83,8 @@ export default function Navbar() {
                 href={href}
                 className={`transition-colors ${
                   isActive
-                    ? 'text-indigo-600 dark:text-indigo-400 font-semibold'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white'
+                    ? 'text-primary  font-semibold underline'
+                    : 'text-zinc-800 '
                 }`}
               >
                 {label}
