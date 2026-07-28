@@ -31,7 +31,7 @@ export default function Footer() {
                 />
               </div>
               <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
-                Rent<span className="text-primary">Gear</span>
+                Share<span className="text-primary">Gear</span>
               </span>
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
