@@ -31,8 +31,11 @@ export default function RootLayout({
         robotoHeading.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
-      <Toaster position="top-right" richColors />
+      <body className="min-h-full flex flex-col">
+        {children} 
+
+         <Toaster position="top-right" richColors />
+      </body>
     </html>
   );
 }

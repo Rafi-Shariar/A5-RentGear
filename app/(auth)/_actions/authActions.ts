@@ -1,8 +1,10 @@
 'use server'
 
+import { LoginState } from "@/lib/types";
 import { cookies } from "next/headers";
 
-export const LoginAction = async(formData : FormData) =>{
+
+export const LoginAction = async(prevState:LoginState, formData : FormData) =>{
 
     const email = formData.get("email");
     const password = formData.get("password");
