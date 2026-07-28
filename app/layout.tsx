@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Montserrat, Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Toaster } from "sonner";
 
 const robotoHeading = Roboto({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">{children}</body>
+      <Toaster position="top-right" richColors />
     </html>
   );
 }

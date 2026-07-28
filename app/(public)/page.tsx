@@ -5,16 +5,14 @@ import GearGridSkeleton from "./_components/gear/GearGridSkeleton";
 
 export default function Home() {
   return (
-    <div >
-       <HeroCard/>
-       {/* TODO: Add coursale of categories with images */}
-      
-         <GearContainer/>
+    <div>
+      <HeroCard />
+      {/* TODO: Add coursale of categories with images */}
 
-      
-        {/* TODO: Add Steps Section */}
-        {/* TODO: Add Reviews Section*/}
-       
+      <GearContainer />
+
+      {/* TODO: Add Steps Section */}
+      {/* TODO: Add Reviews Section*/}
     </div>
   );
 }

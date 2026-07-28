@@ -85,7 +85,7 @@ const HeroCard = () => {
   ];
 
   return (
-    <section className="relative w-full max-w-7xl mx-auto min-h-[500px] lg:min-h-[600px] flex items-center justify-center overflow-hidden rounded-3xl bg-[#0a1122] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+    <div className="relative w-full max-w-7xl mx-auto min-h-[500px] lg:min-h-[600px] flex items-center justify-center overflow-hidden rounded-3xl bg-[#0a1122] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
       {/* Background Image: using 'priority' for LCP, no scaling, full cover */}
       <Image
         src={bannerImage}
@@ -143,7 +143,7 @@ const HeroCard = () => {
           <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
         </Button>
       </div>
-    </section>
+    </div>
   );
 };
 

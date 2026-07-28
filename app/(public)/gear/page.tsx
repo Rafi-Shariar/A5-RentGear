@@ -1,11 +1,10 @@
 import React, { Suspense } from "react";
 import GearList from "../_components/gear/GearList";
 import GearGridSkeleton from "../_components/gear/GearGridSkeleton";
+import { SearchBar } from "../_components/gear/SearchBar";
 
 
 const GearPage = async () => {
-
- 
 
 
   return (
@@ -23,6 +22,9 @@ const GearPage = async () => {
         </p>
       </div>
 
+      <div>
+        {/* <SearchBar/> */}
+      </div>
       <div>
         <Suspense fallback={<GearGridSkeleton/>}>
             <GearList/>
