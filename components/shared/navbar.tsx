@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import logo from '../../assets/logo2.png';
+import logo from '../../assets/logo.png';
 
 interface User {
   name: string;
@@ -62,14 +62,14 @@ export default function Navbar() {
           <div className="flex items-center justify-center">
             <Image
               src={logo}
-              alt="RentGear Logo"
+              alt="ShareGear Logo"
               width={36}
               height={40}
               priority
             />
           </div>
           <span className="text-xl">
-            Rent<span className='font-extrabold text-primary'>Gear</span>
+            Share<span className='font-extrabold text-primary'>Gear</span>
           </span>
         </Link>
 
