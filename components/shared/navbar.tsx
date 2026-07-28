@@ -5,6 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import logo from '../../assets/logo.png';
+import { Button } from '../ui/button';
+import { getMe } from '@/services/getMe';
+import { NavbarUser } from '@/lib/types';
 
 interface User {
   name: string;
@@ -19,18 +22,12 @@ const NAV_LINKS = [
   { href: '/how-it-works', label: 'How It Works' },
 ];
 
-export default function Navbar() {
+export default function Navbar( {user} : NavbarUser) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
 
-  // Mock user session
-  const user: User = {
-    name: 'Alex Johnson',
-    email: 'alex.johnson@example.com',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256',
-  };
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -94,7 +91,10 @@ export default function Navbar() {
         </div>
 
         {/* Right: Profile Avatar & Responsive Dropdown Menu */}
-        <div className="relative z-10" ref={dropdownRef}>
+
+        <div>
+          {user ? <>  
+          <div className="relative z-10" ref={dropdownRef}>
           <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
             className="flex items-center focus:outline-none focus:ring-2 focus:ring-indigo-500/50 rounded-full transition-transform active:scale-95"
@@ -181,6 +181,14 @@ export default function Navbar() {
             </div>
           )}
         </div>
+        </> :
+          
+          <>
+          <Button>Login</Button>
+          </>}
+        </div>
+
+       
 
       </nav>
     </header>

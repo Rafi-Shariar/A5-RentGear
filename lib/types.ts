@@ -9,12 +9,33 @@ export type IGear = {
 };
 
 export type LoginState = {
-    success : boolean;
-    statusCode : number;
-    message : string;
-    data : {
-        accessToken : string,
-        refreshToken : string
-    }
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+};
 
+export type IUser = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    userId: string;
+    email: string;
+    name: string;
+    phoneNumber: string;
+    role: string;
+    address: string;
+    photoURL: string;
+    accountStatus: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+};
+
+export type NavbarUser = {
+    user : IUser
 }
