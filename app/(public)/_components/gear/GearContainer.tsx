@@ -1,7 +1,8 @@
-import React from "react";
-import { getGear } from "../_actions/getGear";
-import GearCard from "./GearCard";
-import { IGear } from "@/lib/types";
+import React, { Suspense } from "react";
+import { getGear } from "../../_actions/getGear";
+
+import GearGridSkeleton from "./GearGridSkeleton";
+import GearListHome from "./GearListHome";
 
 const GearContainer = async () => {
 
@@ -28,12 +29,10 @@ const GearContainer = async () => {
         </p>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center bg-primary/10 p-4 md:px-6 md:py-8 rounded-2xl">
-        {
-            gears.data.gearItems.slice(0, 6).map((gear : IGear) => (
-                <GearCard key={gear.gearId} gear={gear}/>
-            ))
-        }
+    <div>
+        <Suspense fallback={<GearGridSkeleton/>}>
+            <GearListHome/>
+        </Suspense>
       </div>
     </div>
   );

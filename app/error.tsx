@@ -35,16 +35,16 @@ export default function Error({
             Oops! Something went wrong
           </h2>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-sm mx-auto leading-relaxed">
-            We ran into an unexpected issue while loading this gear segment. Don&apost worry, your data is safe.
+            We ran into an unexpected issue while loading this gear segment. Do not worry, your data is safe.
           </p>
         </div>
 
         {/* Error Digest Badge (Useful for debugging in Dev/Prod) */}
-        {error.digest && (
+        {/* {error.digest && (
           <div className="inline-block px-3 py-1 text-xs font-mono rounded-md bg-zinc-200/60 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-300/50 dark:border-zinc-700/50">
             Error ID: {error.digest}
           </div>
-        )}
+        )} */}
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
