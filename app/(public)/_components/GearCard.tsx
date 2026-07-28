@@ -1,32 +1,19 @@
 'use client';
 
+import { IGear } from '@/lib/types';
 import Image from 'next/image';
 import { useState } from 'react';
 
-interface GearItem {
-  gearId: string;
-  category: string;
-  brand: string;
-  title: string;
-  price: number;
-  stock: number;
-  imageURL: string;
-  isBestSeller?: boolean;
+type GearItem = {
+  gear : IGear
 }
 
-export default function GearCard() {
+export default function GearCard({gear} : GearItem) {
+
+
   const [isWishlisted, setIsWishlisted] = useState(false);
 
-  const gear: GearItem = {
-    gearId: "04a6dd2d-6b65-4e43-9a85-5e4320010848",
-    category: "Cycling",
-    brand: "Trek",
-    title: "Marlin 7 Gen 3 Mountain Bike",
-    price: 950,
-    stock: 2,
-    imageURL: "https://images.unsplash.com/photo-1485965120184-e220f721d03e", 
-    isBestSeller: true,
-  };
+
 
   const formatUSD = (amount: number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
@@ -42,18 +29,18 @@ export default function GearCard() {
 
   return (
     /* Card Container: Compact width (max-w-sm / 320px-350px range), responsive and smooth shadow */
-    <div className="w-full max-w-[360px] overflow-hidden rounded-2xl border border-zinc-100 bg-white p-3 shadow-md hover:shadow-xl transition-shadow duration-300">
+    <div className="w-full max-w-95 overflow-hidden rounded-2xl border border-primary/40  bg-white p-3 shadow-xl  transition-shadow">
       
       {/* Top Image Container: Fixed height aspect-ratio */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-zinc-100">
+      <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-zinc-100">
         
         {/* Status Badges & Wishlist */}
         <div className="absolute left-3 top-3 right-3 flex items-center justify-between z-10">
-          {gear.isBestSeller ? (
+          {/* {gear.isBestSeller ? (
             <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-zinc-900 backdrop-blur-sm shadow-sm">
               Best Seller
             </span>
-          ) : <div />}
+          ) : <div />} */}
           
           <button 
             onClick={() => setIsWishlisted(!isWishlisted)}
@@ -100,7 +87,7 @@ export default function GearCard() {
         <p className="mt-1 text-lg font-bold text-zinc-900">{formatUSD(gear.price)}</p>
         
         {/* Action Button */}
-        <button className="mt-4 w-full rounded-xl bg-primary py-2.5 text-sm font-medium text-white transition-all hover:bg-primary/75 hover:text-primary active:scale-[0.98]">
+        <button className="mt-4 w-full rounded-xl bg-primary py-2.5 text-sm font-medium text-white transition-all hover:bg-primary/75 hover:text-green-950 active:scale-[0.98]">
           Rent Now
         </button>
       </div>
