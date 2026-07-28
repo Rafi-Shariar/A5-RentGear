@@ -85,7 +85,7 @@ const HeroCard = () => {
   ];
 
   return (
-    <section className="relative w-full max-w-7xl mx-auto min-h-[500px] lg:min-h-[600px] flex items-center justify-center overflow-hidden rounded-3xl mt-26 bg-[#0a1122] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+    <section className="relative w-full max-w-7xl mx-auto min-h-[500px] lg:min-h-[600px] flex items-center justify-center overflow-hidden rounded-3xl bg-[#0a1122] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
       {/* Background Image: using 'priority' for LCP, no scaling, full cover */}
       <Image
         src={bannerImage}

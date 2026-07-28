@@ -5,11 +5,11 @@ import React from 'react';
 
 const PublicLayout = async ({children} : {children : React.ReactNode}) => {
     return (
-        <div className=''>
+        <div className='min-h-screen flex flex-col'>
             <header>
                 <Navbar/>
             </header>
-           <main className='max-w-7xl mx-auto px-2'>
+           <main className='max-w-7xl mx-auto px-2 pt-28 flex-1'>
              {children}
            </main>
 
