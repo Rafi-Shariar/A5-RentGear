@@ -2,7 +2,14 @@
 
 import { IGear } from '@/lib/types';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import gsap from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 type GearItem = {
   gear : IGear
@@ -12,6 +19,31 @@ export default function GearCard({gear} : GearItem) {
 
 
   const [isWishlisted, setIsWishlisted] = useState(false);
+
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+useEffect(() => {
+  if (cardRef.current) {
+    gsap.fromTo(
+      cardRef.current,
+      {
+        y: 60, 
+        opacity: 0, 
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: cardRef.current, 
+          start: 'top 85%', 
+          toggleActions: 'play none none reverse', 
+        },
+      }
+    );
+  }
+}, []);
 
 
 
@@ -29,7 +61,7 @@ export default function GearCard({gear} : GearItem) {
 
   return (
     /* Card Container: Compact width (max-w-sm / 320px-350px range), responsive and smooth shadow */
-    <div className="w-full max-w-95 overflow-hidden rounded-2xl border border-primary/40  bg-white p-3 shadow-xl  transition-shadow">
+    <div ref={cardRef} className="w-full max-w-95 overflow-hidden rounded-2xl border border-primary/40  bg-white p-3 shadow-xl  transition-shadow">
       
       {/* Top Image Container: Fixed height aspect-ratio */}
       <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-zinc-100">
