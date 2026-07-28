@@ -6,14 +6,9 @@ import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import logo from '../../assets/logo.png';
 import { Button } from '../ui/button';
-import { getMe } from '@/services/getMe';
 import { NavbarUser } from '@/lib/types';
+import { logout } from '@/services/logout';
 
-interface User {
-  name: string;
-  email: string;
-  avatarUrl: string;
-}
 
 const NAV_LINKS = [
   { href: '/gear', label: 'Gears' },
@@ -43,6 +38,7 @@ export default function Navbar( {user} : NavbarUser) {
   // Handle Logout using Next.js App Router navigation
   const handleLogout = () => {
     setIsDropdownOpen(false);
+    logout();
     router.push('/login');
   };
 
@@ -93,7 +89,7 @@ export default function Navbar( {user} : NavbarUser) {
         {/* Right: Profile Avatar & Responsive Dropdown Menu */}
 
         <div>
-          {user ? <>  
+          {user.success ? <>  
           <div className="relative z-10" ref={dropdownRef}>
           <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
@@ -102,8 +98,8 @@ export default function Navbar( {user} : NavbarUser) {
             aria-haspopup="true"
           >
             <Image
-              src={user.avatarUrl}
-              alt={`${user.name}'s avatar`}
+              src={user.data.photoURL}
+              alt={`${user.data.name}'s avatar`}
               width={36}
               height={36}
               priority
@@ -118,10 +114,10 @@ export default function Navbar( {user} : NavbarUser) {
               {/* User Info Header */}
               <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80">
                 <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
-                  {user.name}
+                  {user.data.name}
                 </p>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
-                  {user.email}
+                  {user.data.email}
                 </p>
               </div>
 
@@ -182,9 +178,8 @@ export default function Navbar( {user} : NavbarUser) {
           )}
         </div>
         </> :
-          
           <>
-          <Button>Login</Button>
+          <Link href={"/login"}> <Button variant={"default"}>login</Button></Link>
           </>}
         </div>
 
