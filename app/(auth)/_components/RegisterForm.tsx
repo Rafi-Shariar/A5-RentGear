@@ -77,12 +77,12 @@ const RegisterForm = () => {
       // 3. Call server action or backend API
       const result = await RegisterAction(payload);
 
-    //   if (result?.success) {
-    //     toast.success(result.message || "Registration successful!");
-    //     router.push("/login");
-    //   } else {
-    //     toast.error(result?.message || "Registration failed!");
-    //   }
+      if (result?.success) {
+        toast.success(result.message || "Registration successful!");
+        router.push("/login");
+      } else {
+        toast.error(result?.message || "Registration failed!");
+      }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {
