@@ -22,11 +22,7 @@ const RegisterForm = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterInput>({
+  const { register, handleSubmit, formState: { errors }} = useForm<RegisterInput>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
@@ -65,10 +61,9 @@ const RegisterForm = () => {
         }
       } else {
         // Fallback default avatar if user doesn't upload a picture
-        hostedPhotoURL = `https://api.dicebear.com/7.x/identicon/svg?seed=${data.name}`;
+        hostedPhotoURL = `https://api.dicebear.com/7.x/lorelei/svg`;
       }
 
-      // 2. Prepare payload exactly matching backend needs
       const payload = {
         name: data.name,
         email: data.email,
@@ -134,7 +129,6 @@ const RegisterForm = () => {
         <Input
           {...register("name")}
           type="text"
-          placeholder="John Doe"
           disabled={isSubmitting}
           className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-emerald-500"
         />
@@ -153,7 +147,6 @@ const RegisterForm = () => {
         <Input
           {...register("email")}
           type="email"
-          placeholder="name@example.com"
           disabled={isSubmitting}
           className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-emerald-500"
         />
@@ -174,7 +167,6 @@ const RegisterForm = () => {
           <Input
             {...register("password")}
             type="password"
-            placeholder="••••••••"
             disabled={isSubmitting}
             className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-emerald-500"
           />
@@ -193,7 +185,7 @@ const RegisterForm = () => {
           <Input
             {...register("phoneNumber")}
             type="text"
-            placeholder="01911223344"
+            placeholder=""
             disabled={isSubmitting}
             className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-emerald-500"
           />
@@ -213,7 +205,6 @@ const RegisterForm = () => {
         <Input
           {...register("address")}
           type="text"
-          placeholder="Bashundhara, Dhaka"
           disabled={isSubmitting}
           className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-emerald-500"
         />
@@ -234,8 +225,11 @@ const RegisterForm = () => {
           disabled={isSubmitting}
           className="w-full h-10 px-3 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-800 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:text-zinc-200"
         >
-          <option value="CUSTOMER">Customer</option>
-          <option value="LANDLORD">Landlord</option>
+          <option value="CUSTOMER">CUSTOMER</option>
+          <option value="PROVIDER">PROVIDER</option>
+          <option value="ADMIN">ADMIN</option>
+
+         
         </select>
         {errors.role && (
           <p className="text-xs text-red-500 font-medium pl-1">

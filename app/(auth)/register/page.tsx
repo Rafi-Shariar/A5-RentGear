@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import LoginForm from '../_components/LoginForm';
 import LoginImage from '@/assets/RegisterImage.png'; 
 import RegisterForm from '../_components/RegisterForm';
 

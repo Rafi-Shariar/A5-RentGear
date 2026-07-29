@@ -16,7 +16,8 @@ export const registerSchema = z.object({
     password : z.string().min(5, {message : "Password must be at least 5 characters."}),
     phoneNumber : z.string().min(1, {message:"Email is required"}),
     role: z.enum(["ADMIN", "PROVIDER", "CUSTOMER"], {message : "Please select a role."}),
-    address: z.string().min(3, {message : "Address is required"})
+    address: z.string().min(3, {message : "Address is required"}),
+    photoURL : z.string().optional()
 
 })
 
