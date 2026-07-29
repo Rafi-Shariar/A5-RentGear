@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
 import { getMe } from "@/services/getMe";
 import { UserStoreInitializer } from "./(public)/_components/UserStoreInitializer";
+import { GlobalScrollReset } from "@/components/shared/ScrollToTop";
 
 const robotoHeading = Roboto({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <UserStoreInitializer user={user}/>
+        <GlobalScrollReset/>
         {children} 
 
          <Toaster position="top-right" richColors />
