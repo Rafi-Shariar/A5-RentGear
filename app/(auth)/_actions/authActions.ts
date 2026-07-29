@@ -1,6 +1,6 @@
 'use server'
 
-import { LoginState } from "@/lib/types";
+import { IRegisterUser, LoginState } from "@/lib/types";
 import { loginSchema } from "@/lib/validations/auth";
 import { error } from "console";
 import { cookies } from "next/headers";
@@ -68,5 +68,10 @@ export const LoginAction = async(prevState:LoginState | null, formData : FormDat
   
     
     
+
+}
+
+
+export const RegisterAction = async(payload : IRegisterUser) =>{
 
 }

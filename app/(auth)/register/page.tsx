@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import LoginForm from '../_components/LoginForm';
 import LoginImage from '@/assets/RegisterImage.png'; 
+import RegisterForm from '../_components/RegisterForm';
 
 const RegisterPage = () => {
   return (
@@ -27,7 +28,7 @@ const RegisterPage = () => {
           </div>
 
           {/* Login Form Component */}
-          <LoginForm />
+         <RegisterForm/>
 
           {/* Footer Link Inside Form */}
           <div className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">

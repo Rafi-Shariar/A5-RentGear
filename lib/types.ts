@@ -18,7 +18,7 @@ export type LoginState = {
   };
 };
 
- type IUser = {
+type IUser = {
   success: boolean;
   statusCode: number;
   message: string;
@@ -37,5 +37,15 @@ export type LoginState = {
 };
 
 export type NavbarUser = {
-    user : IUser
-}
+  user: IUser;
+};
+
+export type IRegisterUser = {
+  name:string;
+  email:string;
+  password:string;
+  phoneNumber:string;
+  role:string;
+  address:string;
+  photoURL:string;
+};
