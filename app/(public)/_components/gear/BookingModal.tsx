@@ -3,19 +3,21 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { X, Calendar, Package, User, Mail, Sparkles } from "lucide-react";
+import { X, Sparkles, User, Mail } from "lucide-react";
 import { IGear } from "@/lib/types";
-import { createRentBookingSchema, RentBookingFormValues } from "@/lib/validations/order";
+import {
+  createRentBookingSchema,
+  RentBookingFormValues,
+} from "@/lib/validations/order";
 import { useUserStore } from "@/lib/store/useUserStore";
 import { PlaceOrderAction } from "../../_actions/orderActions";
 import { toast } from "sonner";
-
+import { useEffect } from "react";
 
 interface RentBookingModalProps {
   gear: IGear;
   isOpen: boolean;
   onClose: () => void;
- 
 }
 
 export function RentBookingModal({
@@ -23,9 +25,8 @@ export function RentBookingModal({
   isOpen,
   onClose,
 }: RentBookingModalProps) {
- 
-    const bookingSchema = createRentBookingSchema(gear.stock);
-    const {user} = useUserStore();
+  const bookingSchema = createRentBookingSchema(gear.stock);
+  const { user } = useUserStore();
 
   const {
     register,
@@ -62,50 +63,51 @@ export function RentBookingModal({
   const estimatedTotal = gear.price * quantity * totalDays;
 
   const onSubmit = async (data: RentBookingFormValues) => {
-    try {
-      console.log("Booking Request:", {
-        gearId: gear.gearId,
-        user,
-        ...data,
-        totalCost: estimatedTotal,
-      });
+    if (!user?.data) {
+      toast.error("Please Login to place an order!");
+      return;
+    }
 
+    try {
       const payload = {
         gearId: gear.gearId,
-        quantity : data.quantity,
-        totalAmount : estimatedTotal,
-        collectionDate : data.startDate,
-        returnDate : data.endDate
-        
-      }
+        quantity: Number(data.quantity),
+        totalAmount: estimatedTotal,
+        collectionDate: data.startDate,
+        returnDate: data.endDate,
+      };
 
-      const result = await PlaceOrderAction(payload)
+      const result = await PlaceOrderAction(payload);
+
       if (result?.success) {
         toast.success(result.message || "Order Placed successfully.");
+        reset(); // ✅ Success হলেই শুধু রিসেট হবে
+        onClose(); // ✅ Success হলেই শুধু মডাল বন্ধ হবে
       } else {
         toast.error(result?.message || "Failed to place order. Try again!");
       }
-      
-      reset();
-      onClose();
     } catch (error) {
       console.error("Booking failed", error);
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
   const todayStr = new Date().toISOString().split("T")[0];
 
+
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl border border-zinc-200 dark:bg-zinc-900 dark:border-zinc-800">
-        
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-6 py-4">
+
+         <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-6 py-4">
           <div className="flex items-center gap-2 text-primary font-semibold text-sm">
             <Sparkles className="w-4 h-4" />
             <span>Quick Rent Request</span>
           </div>
           <button
+            type="button"
             onClick={onClose}
             className="rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800 transition-colors"
           >
@@ -114,7 +116,6 @@ export function RentBookingModal({
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-5">
-          
           {/* Item Summary Card */}
           <div className="flex gap-4 p-3 rounded-2xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
             <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-white">
@@ -133,42 +134,53 @@ export function RentBookingModal({
                 {gear.title}
               </h4>
               <p className="text-xs font-medium text-zinc-500">
-                ${gear.price} / day • <span className="text-emerald-600 font-semibold">{gear.stock} Available</span>
+                ${gear.price} / day •{" "}
+                <span className="text-emerald-600 font-semibold">
+                  {gear.stock} Available
+                </span>
               </p>
             </div>
           </div>
 
+
           {/* User Info Readonly Section */}
-          <div className="grid grid-cols-2 gap-3 p-3 rounded-xl bg-primary/5 border border-primary/10">
-            <div className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
-              <User className="w-3.5 h-3.5 text-primary" />
-              <span className="font-medium truncate">Rafi Shariar</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
-              <Mail className="w-3.5 h-3.5 text-primary" />
-              <span className="font-medium truncate">raf@gmail.com</span>
-            </div>
+          <div className="p-3 rounded-xl bg-primary/5 border border-primary/10">
+            {user?.data ? (
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+                  <User className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <span className="font-medium truncate">{user?.data?.name}</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+                  <Mail className="w-3.5 h-3.5 text-primary shrink-0" />
+                  <span className="font-medium truncate">{user?.data?.email}</span>
+                </div>
+              </div>
+            ) : (
+              <h1 className="text-xs font-semibold text-red-500 dark:text-amber-400 text-center italic">
+                Please Log in to place an order
+              </h1>
+            )}
           </div>
 
           {/* Form Fields Grid */}
           <div className="space-y-4">
-            
             {/* Pickup & Return Dates */}
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Pickup Date
                 </label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    min={todayStr}
-                    {...register("startDate")}
-                    className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-transparent px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/40"
-                  />
-                </div>
+                <input
+                  type="date"
+                  min={todayStr}
+                  {...register("startDate")}
+                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-transparent px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/40"
+                />
                 {errors.startDate && (
-                  <p className="text-[10px] text-red-500 mt-1">{errors.startDate.message}</p>
+                  <p className="text-[10px] text-red-500 mt-1">
+                    {errors.startDate.message}
+                  </p>
                 )}
               </div>
 
@@ -176,16 +188,16 @@ export function RentBookingModal({
                 <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                   Return Date
                 </label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    min={startDate || todayStr}
-                    {...register("endDate")}
-                    className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-transparent px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/40"
-                  />
-                </div>
+                <input
+                  type="date"
+                  min={startDate || todayStr}
+                  {...register("endDate")}
+                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-transparent px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/40"
+                />
                 {errors.endDate && (
-                  <p className="text-[10px] text-red-500 mt-1">{errors.endDate.message}</p>
+                  <p className="text-[10px] text-red-500 mt-1">
+                    {errors.endDate.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -203,10 +215,11 @@ export function RentBookingModal({
                 className="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 bg-transparent px-3 py-2 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary/40"
               />
               {errors.quantity && (
-                <p className="text-[10px] text-red-500 mt-1">{errors.quantity.message}</p>
+                <p className="text-[10px] text-red-500 mt-1">
+                  {errors.quantity.message}
+                </p>
               )}
             </div>
-
           </div>
 
           {/* Estimated Total Calculation */}
@@ -233,15 +246,15 @@ export function RentBookingModal({
             >
               Cancel
             </button>
+
             <button
               type="submit"
-              disabled={isSubmitting || gear.stock === 0}
-              className="flex-1 rounded-xl bg-primary py-2.5 text-xs font-semibold text-white shadow-md hover:bg-primary/90 disabled:opacity-50 transition-all"
+              disabled={isSubmitting || gear.stock === 0 || !user?.data} // 👈 Logged in না থাকলে বাটন ডিজেবল
+              className="flex-1 rounded-xl bg-primary py-2.5 text-xs font-semibold text-white shadow-md hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              {isSubmitting ? "Processing..." : "Request Gear"}
+              {isSubmitting ? "Processing..." : "Confirm Booking"}
             </button>
           </div>
-
         </form>
       </div>
     </div>

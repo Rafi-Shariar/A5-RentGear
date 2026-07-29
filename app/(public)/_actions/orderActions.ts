@@ -6,10 +6,10 @@ import { revalidateTag } from "next/cache";
 export const PlaceOrderAction = async (payload: INewOrder) => {
   const accessToken = await isAccessTokenExits();
 
-  if (!accessToken) {
+  if (!accessToken || accessToken === "undefined" || accessToken === "null") {
     return {
       success: false,
-      message: "Authentication token missing. Please log in again.",
+      message: "You must be logged in to place an order.",
     };
   }
 
