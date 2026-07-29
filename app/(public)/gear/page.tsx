@@ -4,7 +4,9 @@ import GearGridSkeleton from "../_components/gear/GearGridSkeleton";
 import { SearchBar } from "../_components/gear/SearchBar";
 
 
-const GearPage = async () => {
+const GearPage = async ({searchParams}: {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
 
 
   return (
@@ -23,11 +25,11 @@ const GearPage = async () => {
       </div>
 
       <div>
-        {/* <SearchBar/> */}
+        <SearchBar/>
       </div>
       <div>
         <Suspense fallback={<GearGridSkeleton/>}>
-            <GearList/>
+            <GearList searchParams={searchParams}/>
         </Suspense>
       </div>
     </div>

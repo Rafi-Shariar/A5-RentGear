@@ -3,6 +3,7 @@ import { getGear } from "../../_actions/getGear";
 
 import GearGridSkeleton from "./GearGridSkeleton";
 import GearListHome from "./GearListHome";
+import { EmptyGearState } from "./EmptyGearState";
 
 const GearContainer = async () => {
 
@@ -10,7 +11,7 @@ const GearContainer = async () => {
 
     if(!gears.success || !gears.data?.gearItems?.length){
         return (
-            <p>No Gear found</p>
+           <EmptyGearState/>
         )
     }
 
