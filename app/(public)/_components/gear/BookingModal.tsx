@@ -8,6 +8,7 @@ import { IGear } from "@/lib/types";
 import { createRentBookingSchema, RentBookingFormValues } from "@/lib/validations/order";
 import { useUserStore } from "@/lib/store/useUserStore";
 import { PlaceOrderAction } from "../../_actions/orderActions";
+import { toast } from "sonner";
 
 
 interface RentBookingModalProps {
@@ -69,7 +70,6 @@ export function RentBookingModal({
         totalCost: estimatedTotal,
       });
 
-      // TODO: Call Action or API here
       const payload = {
         gearId: gear.gearId,
         quantity : data.quantity,
@@ -80,12 +80,11 @@ export function RentBookingModal({
       }
 
       const result = await PlaceOrderAction(payload)
-    //   if (result?.success) {
-    //     toast.success(result.message || "Registration successful!");
-    //     router.push("/login");
-    //   } else {
-    //     toast.error(result?.message || "Registration failed!");
-    //   }
+      if (result?.success) {
+        toast.success(result.message || "Order Placed successfully.");
+      } else {
+        toast.error(result?.message || "Failed to place order. Try again!");
+      }
       
       reset();
       onClose();
@@ -239,7 +238,7 @@ export function RentBookingModal({
               disabled={isSubmitting || gear.stock === 0}
               className="flex-1 rounded-xl bg-primary py-2.5 text-xs font-semibold text-white shadow-md hover:bg-primary/90 disabled:opacity-50 transition-all"
             >
-              {isSubmitting ? "Processing..." : "Confirm Booking"}
+              {isSubmitting ? "Processing..." : "Request Gear"}
             </button>
           </div>
 
