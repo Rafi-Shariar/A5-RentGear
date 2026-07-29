@@ -7,6 +7,7 @@ import { X, Calendar, Package, User, Mail, Sparkles } from "lucide-react";
 import { IGear } from "@/lib/types";
 import { createRentBookingSchema, RentBookingFormValues } from "@/lib/validations/order";
 import { useUserStore } from "@/lib/store/useUserStore";
+import { PlaceOrderAction } from "../../_actions/orderActions";
 
 
 interface RentBookingModalProps {
@@ -69,6 +70,22 @@ export function RentBookingModal({
       });
 
       // TODO: Call Action or API here
+      const payload = {
+        gearId: gear.gearId,
+        quantity : data.quantity,
+        totalAmount : estimatedTotal,
+        collectionDate : data.startDate,
+        returnDate : data.endDate
+        
+      }
+
+      const result = await PlaceOrderAction(payload)
+    //   if (result?.success) {
+    //     toast.success(result.message || "Registration successful!");
+    //     router.push("/login");
+    //   } else {
+    //     toast.error(result?.message || "Registration failed!");
+    //   }
       
       reset();
       onClose();

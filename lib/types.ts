@@ -41,41 +41,23 @@ export type NavbarUser = {
 };
 
 export type IRegisterUser = {
-  name:string;
-  email:string;
-  password:string;
-  phoneNumber:string;
-  role:string;
-  address:string;
-  photoURL:string;
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  role: string;
+  address: string;
+  photoURL: string;
 };
 
-// model Reviews {
-//     reviewId String @id @default(uuid())
-
-//     userId   String
-//     customer User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
-
-//     gearId      String
-//     orderedItem GearItems @relation(fields: [gearId], references: [gearId], onDelete: Cascade)
-
-//     ratings Float
-//     comment String
-
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
-
-//     @@map("reviews")
-// }
-
 export type IReview = {
-  reviewId : string;
-  userId : string;
-  gearId : string;
-  ratings : number;
-  createdAt : string;
-  updatedAt : string;
-}
+  reviewId: string;
+  userId: string;
+  gearId: string;
+  ratings: number;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type GearDetailsData = {
   data: {
@@ -96,4 +78,12 @@ export type GearDetailsData = {
     };
     reviews: IReview[];
   };
-}
+};
+
+export type INewOrder = {
+  gearId:string;
+  quantity:number;
+  totalAmount:number;
+  collectionDate:string;
+  returnDate:string;
+};
