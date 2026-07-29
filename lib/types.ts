@@ -18,7 +18,7 @@ export type LoginState = {
   };
 };
 
-type IUser = {
+export type IUser = {
   success: boolean;
   statusCode: number;
   message: string;

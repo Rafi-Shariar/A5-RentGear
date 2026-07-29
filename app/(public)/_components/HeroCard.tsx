@@ -17,6 +17,7 @@ import {
 import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import bannerImage from "@/assets/bannerImage.jpg";
+import Link from "next/link";
 
 const HeroCard = () => {
   // Reference for GSAP animation
@@ -134,6 +135,7 @@ const HeroCard = () => {
         </p>
 
         {/* Explore Button: Modern, animated CTA */}
+       <Link href={'/gear'}>
         <Button className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-primary px-8 py-6 text-lg font-semibold text-white transition-all duration-300 hover:bg-indigo-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(79,70,229,0.5)] active:scale-95">
           <span className="relative z-10 flex items-center gap-2">
             Find Your Gear
@@ -142,6 +144,7 @@ const HeroCard = () => {
           {/* Background shine effect */}
           <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
         </Button>
+       </Link>
       </div>
     </div>
   );

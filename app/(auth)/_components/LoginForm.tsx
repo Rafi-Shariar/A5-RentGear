@@ -12,8 +12,12 @@ import { Spinner } from "@/components/ui/spinner";
 
 import { LoginAction } from "../_actions/authActions";
 import { loginSchema, LoginInput } from "@/lib/validations/auth";
+import { useUserStore } from "@/lib/store/useUserStore";
+import { getMe } from "@/services/getMe";
 
 const LoginForm = () => {
+
+  const {setUser} = useUserStore();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -41,8 +45,11 @@ const LoginForm = () => {
 
       if (result?.success) {
         toast.success(result.message || "Login successful!");
+        const user = await getMe();
+        setUser(user)
+             router.refresh();
         router.push("/");
-        router.refresh();
+   
       } else {
         toast.error(result?.message || "Invalid credentials!");
       }

@@ -8,6 +8,7 @@ import logo from '../../assets/logo.png';
 import { Button } from '../ui/button';
 import { NavbarUser } from '@/lib/types';
 import { logout } from '@/services/logout';
+import { useUserStore } from '@/lib/store/useUserStore';
 
 
 const NAV_LINKS = [
@@ -17,7 +18,10 @@ const NAV_LINKS = [
   { href: '/how-it-works', label: 'How It Works' },
 ];
 
-export default function Navbar( {user} : NavbarUser) {
+export default function Navbar() {
+
+  const {user, clearUser} = useUserStore();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -36,11 +40,16 @@ export default function Navbar( {user} : NavbarUser) {
   }, []);
 
   // Handle Logout using Next.js App Router navigation
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsDropdownOpen(false);
-    logout();
+    await logout();
+    clearUser();
     router.push('/login');
+    router.refresh();
   };
+
+  const isLoggedIn = user?.success && user?.data;
+
 
   return (
     <header className="fixed top-4 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
@@ -89,7 +98,7 @@ export default function Navbar( {user} : NavbarUser) {
         {/* Right: Profile Avatar & Responsive Dropdown Menu */}
 
         <div>
-          {user.success ? <>  
+          {isLoggedIn ? <>  
           <div className="relative z-10" ref={dropdownRef}>
           <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
