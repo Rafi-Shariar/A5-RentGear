@@ -1,22 +1,37 @@
 'use server'
 
 import { LoginState } from "@/lib/types";
+import { loginSchema } from "@/lib/validations/auth";
+import { error } from "console";
 import { cookies } from "next/headers";
+import { emit } from "process";
+import { success } from "zod";
 
 
-export const LoginAction = async(prevState:LoginState, formData : FormData) =>{
+export const LoginAction = async(prevState:LoginState | null, formData : FormData) =>{
 
     const email = formData.get("email");
     const password = formData.get("password");
-    const payload = {email,password}
+
+    const validatedFields = loginSchema.safeParse({email, password});
+
+    if(!validatedFields.success){
+        return {
+            success : false,
+            message : "Invalid form data",
+            error : validatedFields.error.flatten().fieldErrors
+        }
+    }
 
 
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/login`, {
+    try {
+
+        const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/login`, {
         method : "POST",
         headers : {
             "Content-Type" : "application/json"
         },
-        body : JSON.stringify(payload)
+        body : JSON.stringify(validatedFields.data)
     })
 
 
@@ -37,9 +52,20 @@ export const LoginAction = async(prevState:LoginState, formData : FormData) =>{
             maxAge : 60*60*24*7
         })
     }
-    
 
-    return result
+      return result
+    
+        
+    } catch (error) {
+        console.error("Login Error:", error)
+
+        return {
+            success : false,
+            message : "Server Connection Error. Please try agin later"
+        }
+    }
+
+  
     
     
 
