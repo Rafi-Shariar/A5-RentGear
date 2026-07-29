@@ -19,7 +19,7 @@ const RegisterPage = () => {
               Share<span className="text-emerald-600 dark:text-emerald-500">Gear</span>
             </Link>
             <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-              Sign Up
+              Create An Account
             </h1>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
               Please enter your details to join our community.

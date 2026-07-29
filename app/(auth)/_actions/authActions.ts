@@ -13,8 +13,8 @@ export const LoginAction = async(prevState:LoginState | null, formData : FormDat
     const email = formData.get("email");
     const password = formData.get("password");
 
+    //Zod validation
     const validatedFields = loginSchema.safeParse({email, password});
-
     if(!validatedFields.success){
         return {
             success : false,
