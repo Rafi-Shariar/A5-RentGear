@@ -27,7 +27,7 @@ export default async function GearDetailsPage({
     <>
       {/* 🟢 Fix Scroll Position Bug */}
 
-      <main className="min-h-screen bg-zinc-50/50 dark:bg-zinc-950 pb-16 pt-20 transition-colors">
+      <main className="min-h-screen bg-zinc-50/50 dark:bg-zinc-950 pb-16 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           
           {/* 🟢 Breadcrumbs for Professional UX */}
