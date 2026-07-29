@@ -68,11 +68,6 @@ useEffect(() => {
         
         {/* Status Badges & Wishlist */}
         <div className="absolute left-3 top-3 right-3 flex items-center justify-between z-10">
-          {/* {gear.isBestSeller ? (
-            <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold text-zinc-900 backdrop-blur-sm shadow-sm">
-              Best Seller
-            </span>
-          ) : <div />} */}
           
           <button 
             onClick={() => setIsWishlisted(!isWishlisted)}
@@ -116,7 +111,7 @@ useEffect(() => {
         </h3>
         
         {/* Price */}
-        <p className="mt-1 text-lg font-bold text-zinc-900">{formatUSD(gear.price)}</p>
+        <p className="mt-1 text-lg font-bold text-zinc-900">{formatUSD(gear.price)} <span className='text-sm text-slate-400'>/ day</span></p>
         
         {/* Action Button */}
         <button className="mt-4 w-full rounded-xl bg-primary py-2.5 text-sm font-medium text-white transition-all hover:bg-primary/75 hover:text-green-950 active:scale-[0.98]">
