@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
+import { RentBookingModal } from "./BookingModal";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -20,6 +21,7 @@ export default function GearCard({ gear }: GearItem) {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     if (cardRef.current) {
@@ -62,7 +64,7 @@ export default function GearCard({ gear }: GearItem) {
   const stockStatus = getStockStatus(gear.stock);
 
   return (
-    /* Card Container: Compact width (max-w-sm / 320px-350px range), responsive and smooth shadow */
+    <>
     <div
       ref={cardRef}
       className="w-full max-w-95 overflow-hidden rounded-2xl border border-primary/40  bg-white p-3 shadow-xl  transition-shadow"
@@ -129,23 +131,32 @@ export default function GearCard({ gear }: GearItem) {
         {/* Action Button */}
 
         <div className="mt-4 flex items-center gap-2">
-          {/* Primary Action */}
-          <button
-            type="button"
-            className="flex-1 rounded-xl bg-primary py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary/90 active:scale-[0.98]"
-          >
-            Rent Now
-          </button>
+            <button
+              type="button"
+              disabled={gear.stock === 0}
+              onClick={() => setIsModalOpen(true)} 
+              className="flex-1 rounded-xl bg-primary py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-primary/90 active:scale-[0.98] disabled:opacity-50"
+            >
+              {gear.stock === 0 ? "Out of Stock" : "Rent Now"}
+            </button>
 
-          {/* Secondary Action */}
-          <Link
-            href={`/gear/${gear.gearId}`}
-            className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-center text-sm font-semibold text-zinc-700 shadow-sm transition-all duration-200 hover:bg-zinc-50 hover:border-zinc-300 active:scale-[0.98]"
-          >
-            Know More
-          </Link>
-        </div>
+            <Link
+              href={`/gear/${gear.gearId}`}
+              className="flex-1 rounded-xl border border-zinc-200 bg-white py-2.5 text-center text-sm font-semibold text-zinc-700 shadow-sm transition-all duration-200 hover:bg-zinc-50 hover:border-zinc-300 active:scale-[0.98]"
+            >
+              Know More
+            </Link>
+          </div>
       </div>
+
+     
     </div>
+
+     <RentBookingModal
+        gear={gear}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
   );
 }
