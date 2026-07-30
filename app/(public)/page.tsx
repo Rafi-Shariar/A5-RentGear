@@ -1,7 +1,7 @@
-import { Suspense } from "react";
+
 import HeroCard from "./_components/HeroCard";
 import GearContainer from "./_components/gear/GearContainer";
-import GearGridSkeleton from "./_components/gear/GearGridSkeleton";
+
 
 export default function Home() {
   return (
