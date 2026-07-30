@@ -8,30 +8,7 @@ import {
 } from "lucide-react"
 import { recentOrders } from '@/utils/customerDashbaordHelper';
 import { formatDate } from '@/utils/dateFormetter';
-
-const recentActivity = [
-  {
-    id: "ORD-9823",
-    item: "Sony Alpha A7 IV",
-    date: "Jul 28, 2026",
-    amount: "$150.00",
-    status: "Pending",
-  },
-  {
-    id: "ORD-9781",
-    item: "Canon RF 24-70mm f/2.8L",
-    date: "Jul 15, 2026",
-    amount: "$85.00",
-    status: "Completed",
-  },
-  {
-    id: "ORD-9654",
-    item: "Aputure 300d II Light",
-    date: "Jun 30, 2026",
-    amount: "$120.00",
-    status: "Completed",
-  },
-];
+import Link from 'next/link';
 
 
 const RecentOrdersContains = ({overview} : {overview : any}) => {
@@ -49,9 +26,8 @@ const RecentOrdersContains = ({overview} : {overview : any}) => {
             <p className="text-xs text-zinc-500">Quick view of your latest gear bookings</p>
           </div>
 
-          {/* TODO: link view all button to route */}
           <button className="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
-            View All <ArrowUpRight className="h-3.5 w-3.5" />
+            <Link href={'/dashboard/my-orders'}>View All</Link> <ArrowUpRight className="h-3.5 w-3.5" />
           </button>
         </div>
 

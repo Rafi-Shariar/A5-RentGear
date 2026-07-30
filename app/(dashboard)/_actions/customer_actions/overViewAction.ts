@@ -20,11 +20,11 @@ export const overviewAction = async () => {
         "Content-Type" : "application/json",
          Cookie : `accessToken=${accessToken}`
        },
-       cache : "force-cache",
        next : {
-        revalidate : 60 * 60 * 1,
-        tags : ["dashboard-overview"]
-       }
+        revalidate : 3600,
+        tags:["dashbaord-overview"]
+       },
+       
     })
 
 

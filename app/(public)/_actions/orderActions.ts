@@ -27,6 +27,7 @@ export const PlaceOrderAction = async (payload: INewOrder) => {
 
     if (result.success) {
       revalidateTag("my-orders", { expire: 0 });
+      revalidateTag("dashbaord-overview",{ expire: 0 });
     }
 
     return result;
