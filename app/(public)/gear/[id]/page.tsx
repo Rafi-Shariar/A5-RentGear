@@ -83,7 +83,8 @@ export default async function GearDetailsPage({
               <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 border border-zinc-200/80 dark:border-zinc-800 shadow-xl shadow-zinc-200/40 dark:shadow-none">
                 <BookingWidget
                   price={gear.price} 
-                  stock={gear.stock} 
+                  stock={gear.stock}
+                  gearId={gear.gearId}
                 />
               </div>
 

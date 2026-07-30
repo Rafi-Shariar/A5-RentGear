@@ -2,7 +2,7 @@ import {z} from "zod";
 
 export const createRentBookingSchema = (maxStock: number) => {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // আজকের শুরুর সময় (00:00:00)
+  today.setHours(0, 0, 0, 0); 
 
   return z
     .object({
