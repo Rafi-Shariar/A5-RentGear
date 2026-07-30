@@ -13,6 +13,9 @@ interface OrdersTableProps {
 }
 
 export const OrdersTable = ({ orders }: OrdersTableProps) => {
+
+  console.log("Ordeers: ", orders);
+  
   const [selectedReviewOrder, setSelectedReviewOrder] = useState<RentalOrder | null>(null);
   const [selectedDetailOrder, setSelectedDetailOrder] = useState<RentalOrder | null>(null);
 

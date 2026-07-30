@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
 import React from "react";
 import { OrdersTable } from "../../_components/customer/my_orders/OrdersTable";
-import { useCustomerOrders } from "../../_actions/customer_actions/orderAction";
-
+import { useCustomerOrders } from "../../_hooks/useCustomerOrders";
+import { Loader2 } from "lucide-react";
 
 export default function MyOrdersPage() {
-  const { data: orders, isLoading, isError } = useCustomerOrders();
+  const { data: orders = [], isLoading, isError, error } = useCustomerOrders();
 
   return (
     <div className="space-y-6">
@@ -20,23 +20,27 @@ export default function MyOrdersPage() {
         </p>
       </div>
 
-      {/* State Handling */}
+      {/* 🟢 1. Loading State (isLoading/isPending) */}
       {isLoading && (
-        <div className="flex h-48 items-center justify-center rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-          <span className="text-xs font-medium text-zinc-400 animate-pulse">
-            Loading orders...
-          </span>
+        <div className="flex h-48 w-full items-center justify-center rounded-2xl border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="flex items-center gap-2 text-xs font-medium text-zinc-400">
+            <Loader2 className="h-4 w-4 animate-spin text-zinc-500" />
+            <span>Loading orders...</span>
+          </div>
         </div>
       )}
 
+      {/* 🟢 2. Dynamic Error State */}
       {isError && (
-        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-xs dark:bg-rose-950/30 dark:border-rose-900">
-          Failed to fetch orders. Please try refreshing.
+        <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-xs font-medium text-rose-600 dark:border-rose-900/80 dark:bg-rose-950/30 dark:text-rose-400">
+          {error?.message || "Failed to fetch orders. Please try refreshing."}
         </div>
       )}
 
-      {/* Render Table */}
-      {!isLoading && !isError && orders && <OrdersTable orders={orders} />}
+      {/* 🟢 3. Render Table safely */}
+      {!isLoading && !isError && (
+        <OrdersTable orders={orders} />
+      )}
     </div>
   );
 }
