@@ -4,6 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, ShoppingBag, User, Package, X } from "lucide-react";
 import { create } from "zustand";
+import { ISidebarItem } from "@/lib/types";
+import { useUserStore } from "@/lib/store/useUserStore";
+import { sidebarMenuItems } from "../_config/sidebarMenuItems";
+import Image from "next/image";
+import logo from '@/assets/logo.png'
 
 // Mobile Drawer State Management via lightweight Zustand
 interface SidebarState {
@@ -18,15 +23,25 @@ export const useSidebarStore = create<SidebarState>((set) => ({
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
 }));
 
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "My Orders", href: "/my-orders", icon: ShoppingBag },
-  { label: "Profile", href: "/profile", icon: User },
-];
+
+  
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { isOpen, close } = useSidebarStore();
+  const {user} = useUserStore();
+
+  let navItems : ISidebarItem[]  = [];
+
+  if(user?.data){
+    if(user.data.role === "CUSTOMER"){
+    navItems=sidebarMenuItems.CUSTOMER
+  }else if (user.data.role === "PROVIDER") {
+     navItems = sidebarMenuItems.PROVIDER;
+  }else if (user.data.role === "ADMIN") {
+     navItems = sidebarMenuItems.ADMIN;
+  }
+  }
 
   return (
     <>
@@ -49,12 +64,18 @@ export default function Sidebar() {
             {/* Logo */}
             <div className="flex items-center justify-between px-2 py-3 border-b border-zinc-800">
               <Link href="/" className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary font-bold text-white shadow-lg">
-                  <Package className="w-5 h-5" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl font-bold text-white shadow-lg">
+                 <Image
+              src={logo}
+              alt="ShareGear Logo"
+              width={36}
+              height={40}
+              priority
+            />
                 </div>
-                <span className="text-lg font-bold tracking-tight text-white">
-                  GearRent
-                </span>
+               <span className="text-xl">
+            Share<span className='font-extrabold text-primary'>Gear</span>
+          </span>
               </Link>
               <button 
                 onClick={close}
@@ -89,9 +110,7 @@ export default function Sidebar() {
             </nav>
           </div>
 
-          <div className="border-t border-zinc-800 pt-4 px-2 text-xs text-zinc-500">
-            <p>GearRent Dashboard v1.0</p>
-          </div>
+         
         </div>
       </aside>
     </>
