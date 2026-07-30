@@ -37,3 +37,40 @@ export const createCheckoutSessionAction = async (orderId: string) => {
     throw new Error(error.message || "Internal Server Error. Try again later.");
   }
 };
+
+
+export const getPaymentDetails = async( id : string) =>{
+
+  const accessToken = await isAccessTokenExits();
+
+  if (!accessToken || accessToken === "undefined" || accessToken === "null") {
+    throw new Error("You must be logged in.");
+  }
+
+  try {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/payments/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: `accessToken=${accessToken}`,
+      },
+    });
+
+    if (!res.ok) {
+     throw new Error("Failed to fetch payment details.") 
+    }
+
+    const result = await res.json();
+
+    if (!result.success || !result.data) {
+      throw new Error(result.message || "Payment details not found.");
+    }
+
+    return result.data;
+    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error("Create Checkout Session Error:", error.message);
+    throw new Error(error.message || "Internal Server Error. Try again later.");
+  }
+}

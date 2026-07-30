@@ -114,7 +114,7 @@ export default function PaymentHistoryPage() {
                   {/* Payment Details Button */}
                   <td className="px-6 py-4 text-right">
                     <Link
-                      href={`/dashboard/payments/${item.paymentId}`}
+                      href={`/dashboard/payment-history/${item.paymentId}`}
                       title="View Payment Details"
                       className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-semibold text-zinc-700 shadow-sm transition-colors hover:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800"
                     >
