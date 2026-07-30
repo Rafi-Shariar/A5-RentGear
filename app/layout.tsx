@@ -7,6 +7,7 @@ import { getMe } from "@/services/getMe";
 import { UserStoreInitializer } from "./(public)/_components/UserStoreInitializer";
 import { GlobalScrollReset } from "@/components/shared/ScrollToTop";
 import TanstackProvider from "@/providers/tanstackProvider";
+import SWRProvider from "@/providers/SWRProvider";
 
 const robotoHeading = Roboto({
   subsets: ["latin"],
@@ -25,7 +26,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = await getMe();
 
   return (
@@ -39,14 +39,13 @@ export default async function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        <UserStoreInitializer user={user}/>
-        <GlobalScrollReset/>
-         <TanstackProvider>
-          {children} 
-         </TanstackProvider>
-        
+        <UserStoreInitializer user={user} />
+        <GlobalScrollReset />
+        <TanstackProvider>
+          <SWRProvider>{children}</SWRProvider>
+        </TanstackProvider>
 
-         <Toaster position="top-right" richColors />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

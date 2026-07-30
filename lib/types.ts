@@ -145,3 +145,15 @@ export interface IReviewPayload {
   ratings : number;
   comment : string;
 }
+
+export interface PaymentItem {
+  paymentId: string;
+  transactionId: string;
+  customerId: string;
+  orderId: string;
+  amount: number;
+  method: string;
+  status: "SUCCESSFULL" | "FAILED" | "PENDING";
+  createdAt: string;
+  updatedAt: string;
+}
