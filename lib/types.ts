@@ -97,3 +97,46 @@ export type ISidebarItem = {
     href: string,
     icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 }
+
+export interface Provider {
+  name: string;
+  address: string;
+  email: string;
+  phoneNumber: string;
+}
+
+export interface Gear {
+  gearId: string;
+  provider: Provider;
+  brand: string;
+  title: string;
+}
+
+export type OrderStatus = "PLACED" | "CONFIRMED" | "PAID" | "PICKED_UP" | "RETURNED" | "CANCELLED";
+
+
+export interface RentalOrder {
+  orderId: string;
+  customerId: string;
+  status: OrderStatus;
+  quantity: number;
+  totalAmount: number;
+  collectionDate: string; 
+  returnDate: string;     
+  orderedAt: string;      
+  updatedAt: string;      
+  gear: Gear;
+}
+
+// 🟢 Overview API Data Object
+export interface OverviewData {
+  totalOrder: number;
+  orders: RentalOrder[];
+}
+
+// 🟢 Complete Server Action Response Structure
+export interface OverviewResponse {
+  success: boolean;
+  message?: string;
+  data?: OverviewData;
+}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { 
   Clock, 
@@ -31,7 +32,7 @@ const recentActivity = [
 ];
 
 
-const RecentOrdersContains = () => {
+const RecentOrdersContains = ({overview} : {overview : any}) => {
     return (
         <div>
              <div className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">

@@ -2,8 +2,12 @@
 import MatricContainer from "../_components/customer/MatricContainer";
 import ChartsContainer from "../_components/customer/ChartsContainer";
 import RecentOrdersContains from "../_components/customer/RecentOrdersContains";
+import { overviewAction } from "../_actions/customer_actions/overViewAction";
 
-const CustomerDashboardPage = () => {
+const CustomerDashboardPage =async () => {
+
+    const overview = await overviewAction();
+
   return (
     <div className="space-y-8">
       <div>
@@ -16,14 +20,10 @@ const CustomerDashboardPage = () => {
       </div>
 
 
-      <MatricContainer/>
-
-
-
-      <ChartsContainer/>
+      <MatricContainer overview={overview}/>
     
 
-      <RecentOrdersContains/>
+      <RecentOrdersContains overview={overview}/>
      
     </div>
   );
