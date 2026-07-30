@@ -23,6 +23,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, ShieldAlert, UserCheck, UserX, Loader2, Mail, Phone, MapPin } from "lucide-react";
 import { toast } from "sonner";
+import { updateUserStatus } from "../../_actions/admin_actions/userActions";
+import { useRouter } from "next/navigation";
 
 export interface User {
   userId: string;
@@ -42,6 +44,8 @@ interface UserTableProps {
 }
 
 export default function UserTable({ users }: UserTableProps) {
+  
+  const router = useRouter();
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -58,15 +62,18 @@ export default function UserTable({ users }: UserTableProps) {
     setIsUpdating(true);
 
     try {
-      // Replace with your actual Server Action call
-      // const res = await updateUserStatusAction(selectedUser.userId, newStatus);
-      
-      // Temporary simulated API action delay
-      await new Promise((res) => setTimeout(res, 800));
 
-      toast.success(`User status updated to ${newStatus}`);
-      setIsOpen(false);
-      // router.refresh(); // Un-comment if using Next.js router refresh
+      const res = await updateUserStatus(selectedUser.userId, newStatus)
+
+      if(res.success){
+        toast.success(`User status updated to ${newStatus}`);
+        setIsOpen(false);
+        router.refresh();
+      }else{
+         toast.error("Failed to update status");
+      }
+      
+
     } catch (err: any) {
       toast.error(err?.message || "Failed to update status");
     } finally {
