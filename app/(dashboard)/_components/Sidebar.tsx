@@ -55,9 +55,9 @@ export default function Sidebar() {
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-screen w-64 transform bg-zinc-900 text-white transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 z-50 h-screen w-64 transform bg-zinc-900 text-white transition-transform duration-300 ease-in-out lg:sticky lg:top-0 lg:z-30 lg:translate-x-0 ${
+    isOpen ? "translate-x-0" : "-translate-x-full"
+  }`}
       >
         <div className="flex h-full flex-col justify-between p-4">
           <div>
