@@ -1,28 +1,30 @@
-'use server'
+"use server";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { isAccessTokenExits } from "@/services/getAccessToken";
 
 export const addNewCategoryAction = async (categoryName: string) => {
-
-    const accessToken = await isAccessTokenExits();
+  const accessToken = await isAccessTokenExits();
 
   if (!accessToken || accessToken === "undefined" || accessToken === "null") {
-   return {
+    return {
       success: false,
       data: null,
-      error: "You must be logged in to view order details.",
+      error: "You must be logged in add new category.",
     };
   }
 
   try {
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/admin/category`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: `accessToken=${accessToken}`,
+    const res = await fetch(
+      `${process.env.BACKEND_API_URL}/api/admin/category`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: `accessToken=${accessToken}`,
+        },
+        body: JSON.stringify({ categoryName }),
       },
-      body: JSON.stringify({ categoryName }),
-    });
+    );
 
     const result = await res.json();
 
