@@ -21,3 +21,14 @@ export const calculatedDashboardMatrics = (overview: OverviewData ) =>{
 
 
 }
+
+
+export const recentOrders = (overview : OverviewData) =>{
+
+    const orders = overview.orders || [];
+
+    const recent = orders.sort( (a,b) => new Date(b.orderedAt).getTime() - new Date(a.orderedAt).getTime()).slice(0,3)
+
+    return [...recent]
+
+}
