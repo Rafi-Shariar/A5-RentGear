@@ -6,7 +6,7 @@ import { Package } from "lucide-react";
 import UserInfoNav from "./_components/shared/UserInfoNav";
 import Sidebar from "./_components/shared/Sidebar";
 import MobileMenuButton from "./_components/shared/MobileMenuButtons";
-import TanstackProvider from "@/providers/tanstackProvider";
+
 
 export default async function DashboardLayout({
   children,
@@ -38,9 +38,9 @@ export default async function DashboardLayout({
 
         {/* Dynamic Route Pages */}
         <main className="flex-1 p-4 lg:p-8 overflow-y-auto">
-          <TanstackProvider>
+         
           {children}
-          </TanstackProvider>
+          
         </main>
       </div>
     </div>

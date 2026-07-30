@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Star, X } from "lucide-react";
+import { Star, X, Loader2 } from "lucide-react";
 import { RentalOrder } from "@/lib/types";
-
+import { useAddReview } from "@/app/(dashboard)/_hooks/useAddReview";
+import { toast } from "sonner";
 
 interface AddReviewModalProps {
   order: RentalOrder | null;
@@ -12,29 +13,42 @@ interface AddReviewModalProps {
 }
 
 export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) => {
-  const [rating, setRating] = useState(5);
+  const [ratings, setRatings] = useState(0);
   const [comment, setComment] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { mutate: addReview, isPending } = useAddReview();
 
   if (!isOpen || !order) return null;
 
+  const handleClose = () => {
+    setRatings(0);
+    setComment("");
+    onClose();
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
-    // TODO: Connect Server Action or Mutation here
-    console.log("Submitted Review:", {
-      gearId: order.gear.gearId,
-      orderId: order.orderId,
-      rating,
-      comment,
-    });
+    if (ratings === 0) {
+      toast.error("Please select a rating before submitting.");
+      return;
+    }
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      onClose();
-      setComment("");
-    }, 500);
+    addReview({
+        orderId: order.orderId,
+        ratings,
+        comment,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Review submitted successfully.");
+          handleClose();
+        },
+        onError: () => {
+          toast.error("Failed to submit review. Try again.");
+        },
+      }
+    );
   };
 
   return (
@@ -45,7 +59,8 @@ export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) 
             Write a Review
           </h3>
           <button
-            onClick={onClose}
+            type="button"
+            onClick={handleClose}
             className="rounded-lg p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800"
           >
             <X className="h-5 w-5" />
@@ -60,7 +75,6 @@ export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) 
             <p className="text-xs text-zinc-500">{order.gear.brand}</p>
           </div>
 
-          {/* Rating Selection */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-500">
               Rating
@@ -70,12 +84,12 @@ export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) 
                 <button
                   key={star}
                   type="button"
-                  onClick={() => setRating(star)}
+                  onClick={() => setRatings(star)}
                   className="p-1 transition-transform hover:scale-110"
                 >
                   <Star
                     className={`h-6 w-6 ${
-                      star <= rating
+                      star <= ratings
                         ? "fill-amber-400 text-amber-400"
                         : "text-zinc-300 dark:text-zinc-700"
                     }`}
@@ -85,7 +99,6 @@ export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) 
             </div>
           </div>
 
-          {/* Comment Field */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-500">
               Your Feedback
@@ -103,17 +116,25 @@ export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) 
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
-              onClick={onClose}
+              disabled={isPending}
+              onClick={handleClose}
               className="rounded-xl border border-zinc-200 px-4 py-2 text-xs font-semibold text-zinc-600 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-800"
             >
               Cancel
             </button>
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="rounded-xl bg-zinc-900 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+              disabled={isPending}
+              className="inline-flex items-center gap-2 rounded-xl bg-zinc-900 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
-              {isSubmitting ? "Submitting..." : "Submit Review"}
+              {isPending ? (
+                <>
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                <span>Submit Review</span>
+              )}
             </button>
           </div>
         </form>

@@ -128,15 +128,20 @@ export interface RentalOrder {
   gear: Gear;
 }
 
-// 🟢 Overview API Data Object
 export interface OverviewData {
   totalOrder: number;
   orders: RentalOrder[];
 }
 
-// 🟢 Complete Server Action Response Structure
+
 export interface OverviewResponse {
   success: boolean;
   message?: string;
   data?: OverviewData;
+}
+
+export interface IReviewPayload {
+  orderId : string;
+  ratings : number;
+  comment : string;
 }
