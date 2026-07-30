@@ -6,9 +6,10 @@ import { LayoutDashboard, ShoppingBag, User, Package, X } from "lucide-react";
 import { create } from "zustand";
 import { ISidebarItem } from "@/lib/types";
 import { useUserStore } from "@/lib/store/useUserStore";
-import { sidebarMenuItems } from "../_config/sidebarMenuItems";
+
 import Image from "next/image";
 import logo from '@/assets/logo.png'
+import { sidebarMenuItems } from "../../_config/sidebarMenuItems";
 
 // Mobile Drawer State Management via lightweight Zustand
 interface SidebarState {
