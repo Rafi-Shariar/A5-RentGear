@@ -1,6 +1,6 @@
 
 import MatricContainer from "../_components/customer/dashboard_overview/MatricContainer";
-import ChartsContainer from "../_components/customer/dashboard_overview/ChartsContainer";
+
 import RecentOrdersContains from "../_components/customer/dashboard_overview/RecentOrdersContains";
 import { overviewAction } from "../_actions/customer_actions/overViewAction";
 

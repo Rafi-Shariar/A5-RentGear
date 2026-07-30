@@ -28,6 +28,14 @@ export default function Navbar() {
   const router = useRouter();
 
 
+  let dashboardRoute;
+
+  if(user?.data.role === "CUSTOMER") dashboardRoute = "/dashboard"
+  else if (user?.data.role === "PROVIDER") dashboardRoute = "/provider-dashboard"
+  else if (user?.data.role === "ADMIN") dashboardRoute = "/admin-dashboard"
+  else dashboardRoute = "";
+
+
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -158,7 +166,7 @@ export default function Navbar() {
               {/* Account / Dashboard Links */}
               <div className="py-1">
                 <Link
-                  href="/dashboard"
+                  href={dashboardRoute}
                   onClick={() => setIsDropdownOpen(false)}
                   className="flex items-center px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
                 >
