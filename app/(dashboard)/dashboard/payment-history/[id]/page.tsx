@@ -26,7 +26,7 @@ const PaymentDetailsPage = async ({ params }: Props) => {
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center gap-3">
         <p className="text-red-500 font-medium">Invalid Payment ID</p>
-        <Link href="/dashboard/payments" className="text-sm text-primary underline">
+        <Link href="/dashboard/payment-history" className="text-sm text-primary underline">
           Back to Payments
         </Link>
       </div>

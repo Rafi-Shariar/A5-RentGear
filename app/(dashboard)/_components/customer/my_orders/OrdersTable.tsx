@@ -154,7 +154,7 @@ export const OrdersTable = ({ orders }: OrdersTableProps) => {
                   <td className="px-6 py-4 text-right">
                     <div className="flex items-center justify-end gap-1.5">
                       <Link
-                        href={`/dashboard/orders/${order.orderId}`}
+                        href={`/dashboard/my-orders/${order.orderId}`}
                         title="View Order Details"
                         className="inline-flex items-center gap-1 rounded-lg border border-zinc-200 px-2.5 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800"
                       >

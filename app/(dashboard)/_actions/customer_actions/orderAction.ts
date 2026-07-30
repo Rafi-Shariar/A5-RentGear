@@ -84,3 +84,57 @@ export const deleteOrderAction = async ( orderId : string) =>{
     };
   }
 }
+
+
+export const getOrderDetails = async(id : string) => {
+
+    const accessToken = await isAccessTokenExits();
+
+  if (!accessToken || accessToken === "undefined" || accessToken === "null") {
+   return {
+      success: false,
+      data: null,
+      error: "You must be logged in to view order details.",
+    };
+  }
+
+  try {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/rentals/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: `accessToken=${accessToken}`,
+      },
+      cache : "force-cache"
+    });
+
+    if (!res.ok) {
+     return {
+        success: false,
+        data: null,
+        error: `Failed to fetch order details (Status: ${res.status})`,
+      };
+    }
+
+    const result = await res.json();
+
+    if (!result.success || !result.data) {
+      return {
+      success: false,
+      data: null,
+      error: "Order Details Not Found",
+    };
+    }
+
+    return result.data;
+    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    console.error("Order Details Action Error:", error?.message || error);
+    return {
+      success: false,
+      data: null,
+      error: error?.message || "Internal Server Error. Try again later.",
+    };
+  }
+}
