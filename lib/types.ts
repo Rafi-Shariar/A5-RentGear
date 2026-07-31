@@ -250,3 +250,32 @@ export interface ReviewSectionProps {
   gearId: string;
   existingReview: ExistingReview | null;
 }
+
+export interface IProviderOrder {
+  orderId: string;
+  status: OrderStatus;
+  quantity: number;
+  totalAmount: number;
+  collectionDate: string;
+  returnDate: string;
+  orderedAt: string;
+  updatedAt: string;
+  gear: {
+    gearId: string;
+    categoryId: string;
+    brand: string;
+    title: string;
+    price: number;
+    stock: number;
+    imageURL: string;
+  };
+  user: {
+    name: string;
+    email: string;
+    phoneNumber: string;
+  };
+}
+
+export interface ProviderOrdersTableProps {
+  orders: IProviderOrder[];
+}
