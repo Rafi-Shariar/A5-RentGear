@@ -84,19 +84,20 @@ export type GearDetailsData = {
 };
 
 export type INewOrder = {
-  gearId:string;
-  quantity:number;
-  totalAmount:number;
-  collectionDate:string;
-  returnDate:string;
+  gearId: string;
+  quantity: number;
+  totalAmount: number;
+  collectionDate: string;
+  returnDate: string;
 };
 
-
 export type ISidebarItem = {
-    label: string,
-    href: string,
-    icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
-}
+  label: string;
+  href: string;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
+};
 
 export interface Provider {
   name: string;
@@ -112,8 +113,13 @@ export interface Gear {
   title: string;
 }
 
-export type OrderStatus = "PLACED" | "CONFIRMED" | "PAID" | "PICKED_UP" | "RETURNED" | "CANCELLED";
-
+export type OrderStatus =
+  | "PLACED"
+  | "CONFIRMED"
+  | "PAID"
+  | "PICKED_UP"
+  | "RETURNED"
+  | "CANCELLED";
 
 export interface RentalOrder {
   orderId: string;
@@ -121,10 +127,10 @@ export interface RentalOrder {
   status: OrderStatus;
   quantity: number;
   totalAmount: number;
-  collectionDate: string; 
-  returnDate: string;     
-  orderedAt: string;      
-  updatedAt: string;      
+  collectionDate: string;
+  returnDate: string;
+  orderedAt: string;
+  updatedAt: string;
   gear: Gear;
 }
 
@@ -133,7 +139,6 @@ export interface OverviewData {
   orders: RentalOrder[];
 }
 
-
 export interface OverviewResponse {
   success: boolean;
   message?: string;
@@ -141,9 +146,9 @@ export interface OverviewResponse {
 }
 
 export interface IReviewPayload {
-  orderId : string;
-  ratings : number;
-  comment : string;
+  orderId: string;
+  ratings: number;
+  comment: string;
 }
 
 export interface PaymentItem {
@@ -158,14 +163,23 @@ export interface PaymentItem {
   updatedAt: string;
 }
 
-
 export interface IAddNewGear {
   categoryId: string;
   categoryName: string;
-  createdAt : string;
-  updatedAt : string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IAddNewGearFromProp {
-  categories : IAddNewGear[]
+  categories: IAddNewGear[];
+}
+
+export interface INewGearPayload {
+  brand: string;
+  title: string;
+  price: number;
+  description: string;
+  stock: number;
+  imageURL: string;
+  categoryId: string;
 }

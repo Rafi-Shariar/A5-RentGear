@@ -2,24 +2,25 @@
 'use client';
 
 import { IAddNewGear, IAddNewGearFromProp } from '@/lib/types';
+import { uploadImageToCloudinary } from '@/services/uploadImageToCloundinary';
 import { ImagePlus, Loader2, Package, Tag, UploadCloud, X } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
-
+import { addNewGearAction } from '../../_actions/provider_actions/gearActions';
 
 
 const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
 
 
   const [formData, setFormData] = useState({
-    brand: 'Osprey',
-    title: 'Atmos AG 65 Backcountry Trekking Backpack',
-    price: '340.00',
-    stock: '4',
-    categoryId: '71416b52-480c-4aa8-9cea-05f437a3d2b1',
+    brand: '',
+    title: '',
+    price: '',
+    stock: '',
+    categoryId: '',
     description:
-      'The Osprey Atmos AG 65 features the award-winning Anti-Gravity suspension system, offering unmatched ventilation and load-carrying comfort for multi-day backcountry trekking.',
+      '',
   });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -53,12 +54,7 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
     setImagePreview(null);
   };
 
-  // Upload Helper (e.g., ImgBB / Cloudinary)
-  const uploadImageToHost = async (file: File): Promise<string> => {
-    // Demo delay simulation
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    return 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62';
-  };
+
 
   // Form Submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,10 +72,14 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
     setIsSubmitting(true);
 
     try {
-      // 1. Upload Photo
-      const imageURL = await uploadImageToHost(imageFile);
+     
+      const imageURL = await uploadImageToCloudinary(imageFile);
 
-      // 2. Formatted Payload for Express Backend
+      if(!imageURL){
+        toast.error("Failed to upload photo. Please Try Again.")
+        return;
+      }
+
       const payload = {
         brand: formData.brand.trim(),
         title: formData.title.trim(),
@@ -90,13 +90,14 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
         imageURL,
       };
 
-      console.log('Final Add Gear Payload:', payload);
+    //   console.log( payload);
 
-      // TODO: Execute Server Action
-      // const res = await addNewGearAction(payload);
-      // if (res.success) toast.success("Gear published successfully!");
+      const res = await addNewGearAction(payload)
 
-      toast.success('Gear added successfully!');
+      if(res.success){
+        toast.success("Gear added successfully!")
+      }
+
     } catch (err: any) {
       console.error('Add Gear Error:', err);
       toast.error(err?.message || 'Failed to publish gear item');

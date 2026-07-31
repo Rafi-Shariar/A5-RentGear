@@ -83,7 +83,7 @@ const RegisterForm = () => {
       } else {
         toast.error(result?.message || "Registration failed!");
       }
-    } catch (error) {
+    } catch (error ) {
       toast.error("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
