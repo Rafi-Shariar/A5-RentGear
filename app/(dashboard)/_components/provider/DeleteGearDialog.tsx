@@ -15,6 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { deleteMyGearAction } from "../../_actions/provider_actions/gearActions";
 
 interface IDeleteGearDialogProps {
   gearId: string;
@@ -28,10 +29,16 @@ export const DeleteGearDialog = ({ gearId, gearTitle }: IDeleteGearDialogProps) 
     try {
       setIsDeleting(true);
       
-      // TODO: Replace with your actual Server Action or API call
-      // const res = await deleteGearAction(gearId);
+      const res  = await deleteMyGearAction(gearId)
+
+      if(res.success){
+        toast.success(`"${gearTitle}" deleted successfully.`);
+      }
+      else{
+        toast.error("Failed to delete gear. Please try again.");
+      }
       
-      toast.success(`"${gearTitle}" deleted successfully.`);
+      
     } catch (error) {
       toast.error("Failed to delete gear. Please try again.");
     } finally {
@@ -59,7 +66,7 @@ export const DeleteGearDialog = ({ gearId, gearTitle }: IDeleteGearDialogProps) 
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isDeleting}
-            className="bg-destructive hover:bg-destructive/90 text-destructive-foreground"
+            className="bg-red-700 hover:bg-destructive/90 text-destructive-foreground"
           >
             {isDeleting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
             Delete

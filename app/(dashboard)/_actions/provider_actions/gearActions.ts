@@ -1,6 +1,7 @@
 "use server";
 import { INewGearPayload } from "@/lib/types";
 import { isAccessTokenExits } from "@/services/getAccessToken";
+import { revalidateTag } from "next/cache";
 import { revalidatePath } from "next/cache";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -68,6 +69,11 @@ export const getMyGearListAction = async () => {
       headers: {
         Cookie: `accessToken=${accessToken}`,
       },
+      cache : "force-cache",
+      next : {
+        tags:["provider-gears"],
+        revalidate : 3600
+      }
     });
 
     const result = await res.json();
@@ -88,3 +94,45 @@ export const getMyGearListAction = async () => {
     };
   }
 };
+
+
+export const deleteMyGearAction = async ( gearId : string) =>{
+
+  const accessToken = await isAccessTokenExits();
+
+  if (!accessToken || accessToken === "undefined" || accessToken === "null") {
+    throw new Error("Not Logged in.")
+  }
+
+
+  try {
+
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/provider/gear/${gearId}`, {
+        method : "DELETE",
+       headers:{
+        "Content-Type" : "application/json",
+         Cookie : `accessToken=${accessToken}`
+       },
+       
+    })
+
+   const result = await res.json();
+    if(!res.ok  || !result.success){
+      throw new Error(result.message || "Failed to delete order.");
+    }
+
+    revalidateTag("provider-gears",{ expire: 0 });
+
+
+
+    return result;
+
+    
+  } catch (error) {
+    console.error("Delete Gear Error: ", error);
+    return {
+      success: false,
+      message: "Internal Server Error. Try again later.",
+    };
+  }
+}
