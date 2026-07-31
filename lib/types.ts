@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { LucideProps } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
@@ -184,7 +185,6 @@ export interface INewGearPayload {
   categoryId: string;
 }
 
-
 export interface IGearProvider {
   gearId: string;
   providerId: string;
@@ -197,14 +197,38 @@ export interface IGearProvider {
   imageURL: string;
   createdAt: string;
   updatedAt: string;
-  category : {
-    categoryId : string;
-    categoryName : string;
-    createdAt : string;
-    updatedAt : string;
-  }
+  category: {
+    categoryId: string;
+    categoryName: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 export interface MyGearsProps {
-  gears : IGearProvider[]
+  gears: IGearProvider[];
+}
+
+export interface IGearDetailItem {
+  gearId: string;
+  categoryId: string;
+  brand: string;
+  title: string;
+  price: number;
+  description: string;
+  stock: number;
+  imageURL: string;
+  createdAt: string;
+  updatedAt: string;
+  provider: {
+    providerId: string;
+    email: string;
+    name: string;
+    phoneNumber: string;
+    address: string;
+    photoURL: string;
+    accountStatus: string;
+  };
+  category: string;
+  reviews: any[];
 }

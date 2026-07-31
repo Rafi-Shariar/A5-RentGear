@@ -68,11 +68,6 @@ export const getMyGearListAction = async () => {
       method: "GET",
       headers: {
         Cookie: `accessToken=${accessToken}`,
-      },
-      cache : "force-cache",
-      next : {
-        tags:["provider-gears"],
-        revalidate : 3600
       }
     });
 

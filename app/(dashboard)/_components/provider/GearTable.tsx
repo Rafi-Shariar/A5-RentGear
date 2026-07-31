@@ -103,7 +103,7 @@ export const GearTable = ({ gears }: MyGearsProps) => {
                 <div className="flex items-center justify-end gap-1">
                   {/* Edit Navigation Button */}
                   <Button variant="ghost" size="icon" asChild>
-                    <Link href={`/dashboard/provider/manage-gears/edit/${gear.gearId}`}>
+                    <Link href={`/provider-dashboard/my-gears/${gear.gearId}`}>
                       <Edit className="h-4 w-4 text-muted-foreground hover:text-foreground" />
                       <span className="sr-only">Edit Gear</span>
                     </Link>
