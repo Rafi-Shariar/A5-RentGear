@@ -1,6 +1,7 @@
 "use server";
 import { INewGearPayload } from "@/lib/types";
 import { isAccessTokenExits } from "@/services/getAccessToken";
+import { revalidatePath } from "next/cache";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
@@ -32,6 +33,7 @@ export const addNewGearAction = async (payload : INewGearPayload) => {
     const result = await res.json();
 
     if (res.ok && result.success) {
+      revalidatePath('/provider-dashaboard/my-gears')
       return result;
     }
 
@@ -44,6 +46,45 @@ export const addNewGearAction = async (payload : INewGearPayload) => {
     return {
       success: false,
       message: "Server Connection Error. Please try again later",
+    };
+  }
+};
+
+
+export const getMyGearListAction = async () => {
+  const accessToken = await isAccessTokenExits();
+
+  if (!accessToken || accessToken === "undefined" || accessToken === "null") {
+    return {
+      success: false,
+      data: null,
+      error: "Authentication Failed.",
+    };
+  }
+
+  try {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/provider`, {
+      method: "GET",
+      headers: {
+        Cookie: `accessToken=${accessToken}`,
+      },
+    });
+
+    const result = await res.json();
+
+    if (res.ok && result.success) {
+       return result;
+    }
+
+    return {
+      success: false,
+      message: "Failed to retrieved gear list.",
+    };
+  } catch (error) {
+    console.error("Get Provider Gear list Error : ", error);
+    return {
+      success: false,
+      message: "Internal server error. Try again later.",
     };
   }
 };

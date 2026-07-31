@@ -183,3 +183,28 @@ export interface INewGearPayload {
   imageURL: string;
   categoryId: string;
 }
+
+
+export interface IGearProvider {
+  gearId: string;
+  providerId: string;
+  categoryId: string;
+  brand: string;
+  title: string;
+  price: number;
+  description: string;
+  stock: number;
+  imageURL: string;
+  createdAt: string;
+  updatedAt: string;
+  category : {
+    categoryId : string;
+    categoryName : string;
+    createdAt : string;
+    updatedAt : string;
+  }
+}
+
+export interface MyGearsProps {
+  gears : IGearProvider[]
+}
