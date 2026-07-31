@@ -1,9 +1,28 @@
-// import { IProviderOrder } from "@/lib/types";
+import { IProviderOrder } from "@/lib/types";
 
-// export const calculateOrderStats = (orders : IProviderOrder[]) =>{
+export const calculateOrderStats = (orders : IProviderOrder[]) =>{
 
-// const totalOrders = orders.length;
-//   const newOrders = orders.filter((order) => order.status === "PLACED" || o.status === "CONFIRMED").length;
-//   const completedOrders = orders.filter((o) => o.status === "RETURNED").length;
-//   const totalEarnings = orders.reduce((acc, curr) => acc + curr.totalAmount, 0);
-// }
+    const totalOrders = orders.length
+
+    const newOrders = orders.filter((order) => order.status === "PLACED").length
+
+    const totalAmount = orders.reduce((sum, order) =>{
+        if(order.status !== "PLACED" && order.status !== "CANCELLED"){
+            return sum + order.totalAmount
+        }
+        return sum;
+    },0)
+
+    const pickedUp = orders.filter((order) => order.status === "PICKED_UP").length
+    const returned = orders.filter((order) => order.status === "RETURNED").length
+
+    const result = {
+        totalOrders,
+        newOrders,
+        totalAmount,
+        pickedUp,
+        returned
+    }
+
+return result
+}
