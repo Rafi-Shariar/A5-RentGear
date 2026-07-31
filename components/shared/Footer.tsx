@@ -42,7 +42,7 @@ export default function Footer() {
 
             {/* Social Links using React Icons */}
             <div className="flex items-center gap-3 pt-2">
-              <Link href="https://github.com" target="_blank" rel="noreferrer">
+              <Link href="https://github.com/Rafi-Shariar" target="_blank" rel="noreferrer">
                 <Button
                   size="icon"
                   variant="outline"
@@ -52,18 +52,9 @@ export default function Footer() {
                   <span className="sr-only">GitHub</span>
                 </Button>
               </Link>
-              <Link href="https://twitter.com" target="_blank" rel="noreferrer">
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="h-9 w-9 rounded-full hover:text-primary"
-                >
-                  <FaXTwitter className="h-4 w-4" />
-                  <span className="sr-only">X (Twitter)</span>
-                </Button>
-              </Link>
+              
               <Link
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/rafi-shariar/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -77,7 +68,7 @@ export default function Footer() {
                 </Button>
               </Link>
               <Link
-                href="https://facebook.com"
+                href="https://www.facebook.com/rafi.shariar.630040/"
                 target="_blank"
                 rel="noreferrer"
               >

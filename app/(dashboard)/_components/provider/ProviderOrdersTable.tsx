@@ -72,9 +72,7 @@ export const ProviderOrdersTable = ({ orders }: ProviderOrdersTableProps) => {
 
     setIsUpdating(true);
     try {
-      // TODO: Execute your Update Order Status Server Action
-      // const res = await updateOrderStatusAction(selectedOrder.orderId, newStatus);
-
+    
       const res = await updateOrderStatusAction(selectedOrder.orderId, newStatus)
 
       if(res.success){
