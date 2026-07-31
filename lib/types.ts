@@ -133,10 +133,10 @@ export interface RentalOrder {
   orderedAt: string;
   updatedAt: string;
   gear: Gear;
-  review : {
-    ratings : number,
-    comment : string
-  }
+  review: {
+    ratings: number;
+    comment: string;
+  };
 }
 
 export interface OverviewData {
@@ -237,7 +237,6 @@ export interface IGearDetailItem {
   reviews: any[];
 }
 
-
 export interface ExistingReview {
   reviewId?: string;
   ratings: number;
@@ -280,21 +279,18 @@ export interface ProviderOrdersTableProps {
   orders: IProviderOrder[];
 }
 
-
 export interface IProvider {
   userId: string;
   email: string;
   name: string;
   phoneNumber: string;
-  role: "PROVIDER" | "CUSTOMER" | "ADMIN"; 
+  role: "PROVIDER" | "CUSTOMER" | "ADMIN";
   address: string;
   photoURL: string;
   accountStatus: "ACTIVE" | "SUSPENDED";
   createdAt: string;
   updatedAt: string;
 }
-
-
 
 export interface IGearAdmin {
   brand: string;
@@ -307,4 +303,42 @@ export interface IGearAdmin {
   updatedAt: string;
   provider: IProvider;
   category: IAddNewGear;
+}
+
+export interface IOrderGear {
+  brand: string;
+  title: string;
+  price: number;
+  category: {
+    categoryName: string;
+  };
+  provider: {
+    userId: string;
+    email: string;
+    name: string;
+    phoneNumber: string;
+    address: string;
+    accountStatus: string;
+  };
+}
+
+export interface IAdminOrder {
+  orderId: string;
+  customerId: string;
+  gearId: string;
+  status: OrderStatus;
+  quantity: number;
+  totalAmount: number;
+  collectionDate: string;
+  returnDate: string;
+  orderedAt: string;
+  updatedAt: string;
+  user: {
+    email: string;
+    name: string;
+    phoneNumber: string;
+    address: string;
+    accountStatus: string;
+  };
+  gear: IOrderGear;
 }
