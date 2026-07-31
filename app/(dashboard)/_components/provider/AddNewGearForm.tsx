@@ -9,19 +9,19 @@ import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { addNewGearAction } from '../../_actions/provider_actions/gearActions';
 
+const initialFormData = {
+  brand: '',
+  title: '',
+  price: '',
+  stock: '',
+  categoryId: '',
+  description: '',
+};
 
 const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
 
 
-  const [formData, setFormData] = useState({
-    brand: '',
-    title: '',
-    price: '',
-    stock: '',
-    categoryId: '',
-    description:
-      '',
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -95,7 +95,11 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
       const res = await addNewGearAction(payload)
 
       if(res.success){
+        
         toast.success("Gear added successfully!")
+        setFormData(initialFormData)
+        setImageFile(null)
+        setImagePreview(null)
       }
 
     } catch (err: any) {
