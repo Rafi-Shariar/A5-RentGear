@@ -157,3 +157,15 @@ export interface PaymentItem {
   createdAt: string;
   updatedAt: string;
 }
+
+
+export interface IAddNewGear {
+  categoryId: string;
+  categoryName: string;
+  createdAt : string;
+  updatedAt : string;
+}
+
+export interface IAddNewGearFromProp {
+  categories : IAddNewGear[]
+}

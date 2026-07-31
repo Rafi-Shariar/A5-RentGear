@@ -3,8 +3,13 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import AddNewGearForm from '../../_components/provider/AddNewGearForm';
+import { getGearCategories } from '../../_actions/provider_actions/getCategory';
 
-const AddNewGearPage = () => {
+const AddNewGearPage = async () => {
+
+    const categoryResponse = await getGearCategories();
+    const categories = categoryResponse.data.categories || [];
+
   return (
     <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
       {/* Header & Back Button */}
@@ -25,7 +30,7 @@ const AddNewGearPage = () => {
       </div>
 
       {/* Form Client Component */}
-      <AddNewGearForm />
+      <AddNewGearForm categories = {categories} />
     </div>
   );
 };

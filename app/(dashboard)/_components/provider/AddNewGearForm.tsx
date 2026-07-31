@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
+import { IAddNewGear, IAddNewGearFromProp } from '@/lib/types';
 import { ImagePlus, Loader2, Package, Tag, UploadCloud, X } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 
-// Demo Categories (Replace with dynamic dynamic data if fetched from backend)
-const CATEGORIES = [
-  { id: '71416b52-480c-4aa8-9cea-05f437a3d2b1', name: 'Backpacks & Bags' },
-  { id: '82527c63-591d-5bb9-1dfa-16g548b4e3c2', name: 'Camping Tents' },
-  { id: '93638d74-602e-6cc0-2egb-27h659c5f4d3', name: 'Cameras & Lenses' },
-];
 
-const AddNewGearForm = () => {
+
+const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
+
+
   const [formData, setFormData] = useState({
     brand: 'Osprey',
     title: 'Atmos AG 65 Backcountry Trekking Backpack',
@@ -146,9 +144,9 @@ const AddNewGearForm = () => {
                   className="w-full text-sm border border-gray-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white"
                 >
                   <option value="">Select Category</option>
-                  {CATEGORIES.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.name}
+                  {categories.map((cat : IAddNewGear) => (
+                    <option key={cat.categoryId} value={cat.categoryId}>
+                      {cat.categoryName}
                     </option>
                   ))}
                 </select>
