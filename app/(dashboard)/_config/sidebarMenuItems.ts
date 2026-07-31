@@ -12,6 +12,7 @@ const CUSTOMER_SIDEBAR_ITEMS : ISidebarItem[] = [
 const PROVIDER_SIDEBAR_ITEMS : ISidebarItem[] = [
     { label : "dashboard", href:'/provider-dashboard', icon : LayoutDashboard},
     { label : "Add New Gear", href:'/provider-dashboard/add-gear', icon : CirclePlus},
+    { label : "My Gears", href:'/provider-dashboard/my-gears', icon : PackageSearch},
     { label : "My Orders", href:'/provider-dashboard/my-orders', icon : ClockArrowRightIcon},
     { label : "Back Home", href:'/', icon : ArrowLeftToLine},
 ]
