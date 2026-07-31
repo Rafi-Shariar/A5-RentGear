@@ -131,3 +131,48 @@ export const deleteMyGearAction = async ( gearId : string) =>{
     };
   }
 }
+
+
+export const updateGearDataAction = async ( gearId : string, payload: INewGearPayload) =>{
+
+  const accessToken = await isAccessTokenExits();
+
+  if (!accessToken || accessToken === "undefined" || accessToken === "null") {
+    throw new Error("Not Logged in.")
+  }
+
+
+  try {
+
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/provider/gear/${gearId}`, {
+        method : "PUT",
+       headers:{
+        "Content-Type" : "application/json",
+         Cookie : `accessToken=${accessToken}`
+       },
+       body : JSON.stringify(payload)
+       
+    })
+
+   const result = await res.json();
+
+    if (res.ok && result.success) {
+      revalidatePath('/provider-dashaboard/my-gears')
+      revalidatePath('/gears')
+      return result;
+    }
+
+    return {
+      success: false,
+      message: result?.message || "Failed to update gear.",
+    };
+
+    
+  } catch (error) {
+    console.error("Update Gear Error: ", error);
+    return {
+      success: false,
+      message: "Internal Server Error. Try again later.",
+    };
+  }
+}

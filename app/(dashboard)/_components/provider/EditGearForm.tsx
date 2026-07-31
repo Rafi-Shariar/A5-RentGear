@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { IAddNewGear, IAddNewGearFromProp, IGearDetailItem } from "@/lib/types";
 import { uploadImageToCloudinary } from "@/services/uploadImageToCloundinary";
+import { updateGearDataAction } from "../../_actions/provider_actions/gearActions";
 
 
 interface IEditGearFormProps {
@@ -84,13 +85,19 @@ export const EditGearForm = ({ gear, categories }: IEditGearFormProps) => {
         imageURL,
       };
 
-      // TODO: Execute your Server Action
 
-      // const res = await updateGearAction(gear.gearId, payload);
+      const res = await updateGearDataAction(gear.gearId, payload)
 
-      toast.success("Gear updated successfully!");
-      router.push("/provider-dashbaord/my-gears");
-      router.refresh();
+      if(res.success){
+         toast.success("Gear updated successfully!");
+         router.push("/provider-dashboard/my-gears");
+      }
+      else{
+        toast.error("Gear updated Failed!");
+      }
+
+     
+      // router.refresh();
     } catch (error) {
       toast.error("Something went wrong while updating gear.");
     } finally {
