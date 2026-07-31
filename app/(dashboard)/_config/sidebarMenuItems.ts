@@ -4,7 +4,7 @@ import { ArrowLeftToLine, BadgeDollarSign, ChartBarStacked, CirclePlus, ClockArr
 const CUSTOMER_SIDEBAR_ITEMS : ISidebarItem[] = [
     { label : "Dashboard", href:'/dashboard', icon : LayoutDashboard},
     { label : "My Orders", href:'/dashboard/my-orders', icon : ShoppingCart},
-    { label : "My Reviews", href:'/dashboard/my-reviews', icon : MessageCircleCode},
+    
     { label : "Payment Histoty", href:'/dashboard/payment-history', icon : BadgeDollarSign},
     { label : "Back Home", href:'/', icon : ArrowLeftToLine},
 ]

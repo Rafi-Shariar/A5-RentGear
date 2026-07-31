@@ -5,23 +5,23 @@ import React from "react";
 const statusConfig: Record<OrderStatus, { label: string; className: string }> = {
   PLACED: {
     label: "Placed",
-    className: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-900",
+    className: "bg-yellow-100 text-yellow-700 border-yellow-200 dark:bg-yellow-950/40 dark:text-yellow-400 dark:border-yellow-900",
   },
   CONFIRMED: {
     label: "Confirmed",
-    className: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-900",
+    className: "bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-900",
   },
   PAID: {
     label: "Paid",
-    className: "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-400 dark:border-indigo-900",
+    className: "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/40 dark:text-purple-400 dark:border-purple-900",
   },
   PICKED_UP: {
     label: "Picked Up",
-    className: "bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/40 dark:text-purple-400 dark:border-purple-900",
+    className: "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/40 dark:text-green-400 dark:border-green-900",
   },
   RETURNED: {
     label: "Returned",
-    className: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-900",
+    className: "bg-grey-50 text-grey-700 border-grey-200 dark:bg-grey-950/40 dark:text-grey-400 dark:border-grey-900",
   },
   CANCELLED: {
     label: "Cancelled",
