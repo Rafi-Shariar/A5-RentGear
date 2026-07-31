@@ -1,10 +1,14 @@
+'use server'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IReviewPayload } from "@/lib/types";
 import { isAccessTokenExits } from "@/services/getAccessToken";
+import { revalidatePath } from "next/cache";
 
 export const addReviewAction = async(payload : IReviewPayload) =>{
 
     const accessToken = await isAccessTokenExits();
+
+    const {orderId} = payload
     
       if (!accessToken || accessToken === "undefined" || accessToken === "null") {
         throw new Error("Not Logged in.")
@@ -24,11 +28,15 @@ export const addReviewAction = async(payload : IReviewPayload) =>{
         })
     
        const result = await res.json();
-        if(!res.ok  || !result.success){
-          throw new Error(result.message || "Failed to add review.");
-        }
-    
-        return result;
+        if (res.ok && result.success) {
+              revalidatePath(`/dashboard/my-orders/${orderId}`)
+              return result;
+            }
+        
+            return {
+              success: false,
+              message: result?.message || "Failed to add review.",
+            };
     
         
       } catch (error : any) {

@@ -1,3 +1,4 @@
+'use server'
 import { isAccessTokenExits } from "@/services/getAccessToken";
 import { success } from "zod";
 
@@ -19,10 +20,6 @@ export const overviewAction = async () => {
        headers:{
         "Content-Type" : "application/json",
          Cookie : `accessToken=${accessToken}`
-       },
-       next : {
-        revalidate : 3600,
-        tags:["dashbaord-overview"]
        },
        
     })

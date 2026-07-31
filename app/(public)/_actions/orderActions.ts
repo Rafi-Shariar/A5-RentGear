@@ -1,6 +1,7 @@
 "use server";
 import { INewOrder } from "@/lib/types";
 import { isAccessTokenExits } from "@/services/getAccessToken";
+import { revalidatePath } from "next/cache";
 import { revalidateTag } from "next/cache";
 
 export const PlaceOrderAction = async (payload: INewOrder) => {
@@ -27,7 +28,8 @@ export const PlaceOrderAction = async (payload: INewOrder) => {
 
     if (result.success) {
       revalidateTag("my-orders", { expire: 0 });
-      revalidateTag("dashbaord-overview",{ expire: 0 });
+      revalidatePath("/dashbaord");
+      revalidatePath("/dashbaord/my-orders");
     }
 
     return result;

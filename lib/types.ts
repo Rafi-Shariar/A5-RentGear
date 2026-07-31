@@ -133,6 +133,10 @@ export interface RentalOrder {
   orderedAt: string;
   updatedAt: string;
   gear: Gear;
+  review : {
+    ratings : number,
+    comment : string
+  }
 }
 
 export interface OverviewData {
@@ -231,4 +235,18 @@ export interface IGearDetailItem {
   };
   category: string;
   reviews: any[];
+}
+
+
+export interface ExistingReview {
+  reviewId?: string;
+  ratings: number;
+  comment: string;
+  createdAt?: string;
+}
+
+export interface ReviewSectionProps {
+  orderId: string;
+  gearId: string;
+  existingReview: ExistingReview | null;
 }

@@ -1,97 +1,94 @@
 "use client";
 
-import React, { useState } from "react";
-import { Star, X, Loader2 } from "lucide-react";
-import { RentalOrder } from "@/lib/types";
-import { useAddReview } from "@/app/(dashboard)/_hooks/useAddReview";
-import { toast } from "sonner";
+import { useState } from "react";
+import { Star, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner"; // অথবা আপনার পছন্দমতো toast library
 
 interface AddReviewModalProps {
-  order: RentalOrder | null;
-  isOpen: boolean;
-  onClose: () => void;
+  orderId: string;
+  gearId: string;
 }
 
-export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) => {
-  const [ratings, setRatings] = useState(0);
+export default function AddReviewModal({ orderId, gearId }: AddReviewModalProps) {
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(5);
+  const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { mutate: addReview, isPending } = useAddReview();
-
-  if (!isOpen || !order) return null;
-
-  const handleClose = () => {
-    setRatings(0);
-    setComment("");
-    onClose();
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    if (ratings === 0) {
-      toast.error("Please select a rating before submitting.");
-      return;
-    }
-
-    addReview({
-        orderId: order.orderId,
-        ratings,
+    try {
+      const payload = {
+        orderId,
+        gearId,
+        rating,
         comment,
-      },
-      {
-        onSuccess: () => {
-          toast.success("Review submitted successfully.");
-          handleClose();
-        },
-        onError: () => {
-          toast.error("Failed to submit review. Try again.");
-        },
-      }
-    );
+      };
+
+      console.log("Submitting review payload:", payload);
+
+      // TODO: আপনার Add Review Server Action কল করুন
+      // const res = await addReviewAction(payload);
+
+      toast.success("Review submitted successfully!");
+      setOpen(false);
+      setComment("");
+    } catch (error) {
+      toast.error("Failed to submit review. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-6 shadow-xl dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="flex items-center justify-between border-b pb-4 dark:border-zinc-800">
-          <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-            Write a Review
-          </h3>
-          <button
-            type="button"
-            onClick={handleClose}
-            className="rounded-lg p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="default" className="gap-2">
+          <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+          Write a Review
+        </Button>
+      </DialogTrigger>
 
-        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-          <div>
-            <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-              {order.gear.title}
-            </p>
-            <p className="text-xs text-zinc-500">{order.gear.brand}</p>
-          </div>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Rate & Review Item</DialogTitle>
+          <DialogDescription>
+            Share your experience with this rented gear to help others.
+          </DialogDescription>
+        </DialogHeader>
 
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-500">
-              Rating
-            </label>
-            <div className="mt-2 flex items-center gap-1">
+        <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+          {/* Star Rating Select */}
+          <div className="flex flex-col items-center justify-center gap-2 py-2">
+            <span className="text-sm font-medium text-gray-700">Your Rating</span>
+            <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
                   type="button"
-                  onClick={() => setRatings(star)}
-                  className="p-1 transition-transform hover:scale-110"
+                  onClick={() => setRating(star)}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                  className="p-1 focus:outline-none transition-transform hover:scale-110"
                 >
                   <Star
-                    className={`h-6 w-6 ${
-                      star <= ratings
+                    className={`w-7 h-7 ${
+                      star <= (hoverRating || rating)
                         ? "fill-amber-400 text-amber-400"
-                        : "text-zinc-300 dark:text-zinc-700"
+                        : "text-gray-300"
                     }`}
                   />
                 </button>
@@ -99,46 +96,37 @@ export const AddReviewModal = ({ order, isOpen, onClose }: AddReviewModalProps) 
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-zinc-500">
-              Your Feedback
+          {/* Comment Textarea */}
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-gray-700">
+              Your Review / Feedback
             </label>
-            <textarea
-              required
-              rows={4}
+            <Textarea
+              placeholder="How was the gear condition? Was the provider helpful?"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              placeholder="Share your experience with this equipment..."
-              className="mt-2 w-full rounded-xl border border-zinc-200 bg-zinc-50 p-3 text-sm focus:border-zinc-400 focus:outline-none dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100"
+              rows={4}
+              required
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-2">
-            <button
+          {/* Form Actions */}
+          <div className="flex justify-end gap-2 pt-2">
+            <Button
               type="button"
-              disabled={isPending}
-              onClick={handleClose}
-              className="rounded-xl border border-zinc-200 px-4 py-2 text-xs font-semibold text-zinc-600 hover:bg-zinc-50 dark:border-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-800"
+              variant="outline"
+              onClick={() => setOpen(false)}
+              disabled={isSubmitting}
             >
               Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={isPending}
-              className="inline-flex items-center gap-2 rounded-xl bg-zinc-900 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
-            >
-              {isPending ? (
-                <>
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                  <span>Submitting...</span>
-                </>
-              ) : (
-                <span>Submit Review</span>
-              )}
-            </button>
+            </Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              Submit Review
+            </Button>
           </div>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
-};
+}

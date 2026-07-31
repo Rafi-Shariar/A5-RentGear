@@ -68,6 +68,13 @@ export function RentBookingModal({
       return;
     }
 
+    if(data.startDate === data.endDate){
+
+      toast.error("Dates Can not be same.");
+      return;
+
+    }
+
     try {
       const payload = {
         gearId: gear.gearId,
@@ -81,8 +88,8 @@ export function RentBookingModal({
 
       if (result?.success) {
         toast.success(result.message || "Order Placed successfully.");
-        reset(); // ✅ Success হলেই শুধু রিসেট হবে
-        onClose(); // ✅ Success হলেই শুধু মডাল বন্ধ হবে
+        reset(); 
+        onClose(); 
       } else {
         toast.error(result?.message || "Failed to place order. Try again!");
       }
