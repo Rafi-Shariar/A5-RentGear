@@ -24,26 +24,26 @@ export default function GearCard({ gear }: GearItem) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
-    if (cardRef.current) {
-      gsap.fromTo(
-        cardRef.current,
-        {
-          y: 60,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        },
-      );
-    }
+    // if (cardRef.current) {
+    //   gsap.fromTo(
+    //     cardRef.current,
+    //     {
+    //       y: 60,
+    //       opacity: 0,
+    //     },
+    //     {
+    //       y: 0,
+    //       opacity: 1,
+    //       duration: 1.2,
+    //       ease: "power3.out",
+    //       scrollTrigger: {
+    //         trigger: cardRef.current,
+    //         start: "top 85%",
+    //         toggleActions: "play none none reverse",
+    //       },
+    //     },
+    //   );
+    // }
   }, []);
 
   const formatUSD = (amount: number) => {

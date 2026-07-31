@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import GearList from "../_components/gear/GearList";
 import GearGridSkeleton from "../_components/gear/GearGridSkeleton";
 import { SearchBar } from "../_components/gear/SearchBar";
+import { GearFilters } from "../_components/gear/GearFilters";
 
 
 const GearPage = async ({searchParams}: {
@@ -25,7 +26,8 @@ const GearPage = async ({searchParams}: {
       </div>
 
       <div>
-        <SearchBar/>
+        {/* <SearchBar/> */}
+        <GearFilters/>
       </div>
       <div>
         <Suspense fallback={<GearGridSkeleton/>}>

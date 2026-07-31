@@ -168,16 +168,28 @@ export default function Navbar() {
                 <Link
                   href={dashboardRoute}
                   onClick={() => setIsDropdownOpen(false)}
-                  className="flex items-center px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
+                  className="pt-1 border-b border-zinc-100 flex items-center px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
                 >
                   Dashboard
                 </Link>
+
+                <p className="px-4 py-1 text-[11px] font-semibold tracking-wider text-zinc-400 uppercase">
+                  PROFILE
+                </p>
                 <Link
-                  href="/profile"
+                  href="/update-profile"
                   onClick={() => setIsDropdownOpen(false)}
-                  className="flex items-center px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
+                  className=" flex items-center px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
                 >
-                  Profile
+                  Update Profile
+                </Link>
+
+                <Link
+                  href="/password"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className=" flex items-center px-4 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors"
+                >
+                  Change password
                 </Link>
               </div>
 

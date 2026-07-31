@@ -20,7 +20,7 @@ export function SearchBar() {
 
         debouncedReference.current = setTimeout(() =>{
 
-            const params = new URLSearchParams();
+            const params = new URLSearchParams(searchParams.toString());
 
             if (value) {
               params.set("searchTerm", value);
@@ -29,14 +29,14 @@ export function SearchBar() {
             }
 
             router.replace(`${pathname}?${params.toString()}`);
-        }, 500)
+        }, 300)
 
 
     }
    
 
     return (
-        <div className="relative w-full max-w-sm">
+        <div className="relative w-full max-w-sm my-6">
             <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
                 defaultValue={searchParams.get("searchTerm") ? searchParams.get("searchTerm")?.toString() : ""}
