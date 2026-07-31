@@ -222,9 +222,9 @@ export default function UserTable({ users }: UserTableProps) {
               Are you sure you want to change status for{" "}
               <span className="font-semibold text-slate-900">{selectedUser?.name}</span>?
               {selectedUser?.accountStatus === "ACTIVE" ? (
-                <p className="mt-2 text-xs bg-rose-50 text-rose-700 p-2.5 rounded-lg border border-rose-200">
+                <span className="mt-2 text-xs bg-rose-50 text-rose-700 p-2.5 rounded-lg border border-rose-200">
                   ⚠️ This user will be blocked from logging into the platform and placing/managing orders.
-                </p>
+                </span>
               ) : (
                 <p className="mt-2 text-xs bg-emerald-50 text-emerald-700 p-2.5 rounded-lg border border-emerald-200">
                   ✅ Access will be restored, allowing full platform features.

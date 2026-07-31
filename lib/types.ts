@@ -279,3 +279,32 @@ export interface IProviderOrder {
 export interface ProviderOrdersTableProps {
   orders: IProviderOrder[];
 }
+
+
+export interface IProvider {
+  userId: string;
+  email: string;
+  name: string;
+  phoneNumber: string;
+  role: "PROVIDER" | "CUSTOMER" | "ADMIN"; 
+  address: string;
+  photoURL: string;
+  accountStatus: "ACTIVE" | "SUSPENDED";
+  createdAt: string;
+  updatedAt: string;
+}
+
+
+
+export interface IGearAdmin {
+  brand: string;
+  title: string;
+  price: number;
+  description: string;
+  stock: number;
+  imageURL: string;
+  createdAt: string;
+  updatedAt: string;
+  provider: IProvider;
+  category: IAddNewGear;
+}

@@ -35,6 +35,7 @@ export const addNewGearAction = async (payload : INewGearPayload) => {
 
     if (res.ok && result.success) {
       revalidatePath('/provider-dashaboard/my-gears')
+      revalidatePath('/admin-dashaboard/gears')
       return result;
     }
 
