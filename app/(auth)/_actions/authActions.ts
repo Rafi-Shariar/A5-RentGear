@@ -3,12 +3,15 @@
 import { IRegisterUser, LoginState } from "@/lib/types";
 import { loginSchema, registerSchema } from "@/lib/validations/auth";
 import { cookies } from "next/headers";
-import { success } from "zod";
+import { string, success } from "zod";
+import jwt, { JwtPayload } from "jsonwebtoken"
+import { redirect } from "next/navigation";
 
 
 export const LoginAction = async (
   prevState: LoginState | null,
   formData: FormData,
+  redirectTo : string
 ) => {
   const email = formData.get("email");
   const password = formData.get("password");
@@ -22,6 +25,8 @@ export const LoginAction = async (
       error: validatedFields.error.flatten().fieldErrors,
     };
   }
+
+  let targetRedirectURL : string | null = null;
 
   try {
     const res = await fetch(`${process.env.BACKEND_API_URL}/api/auth/login`, {
@@ -48,9 +53,36 @@ export const LoginAction = async (
         sameSite: "lax",
         maxAge: 60 * 60 * 24 * 7,
       });
+
+      const decodedToken = jwt.decode(result.data.accessToken) as JwtPayload
+
+      if(redirectTo && typeof redirectTo === "string" && redirectTo.startsWith('/') && !redirectTo.startsWith('//')){
+        // redirect(redirectTo)
+        targetRedirectURL = redirectTo
+      }
+
+      if(decodedToken.role === "CUSTOMER"){
+            // redirect('/dashboard')
+            targetRedirectURL = '/dashboard'
+        }
+        else if( decodedToken.role === "ADMIN"){
+            // redirect('/admin-dashboard')
+            targetRedirectURL = '/admin-dashboard'
+        }
+        else if (decodedToken.role === "PROVIDER"){
+            // redirect('/provider-dashboard')
+            targetRedirectURL = '/provider-dashboard'
+        }
+
+        return {
+          success : true,
+          message : result.message,
+          redirectTo : targetRedirectURL || '/',
+          data : result.data
+        }
     }
 
-    return result;
+    
   } catch (error) {
     console.error("Login Error:", error);
 
@@ -58,6 +90,12 @@ export const LoginAction = async (
       success: false,
       message: "Server Connection Error. Please try agin later",
     };
+  }
+
+
+  return {
+    success : false,
+    message : "User role not recognized!"
   }
 };
 

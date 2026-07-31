@@ -37,6 +37,7 @@ export async function proxy(request : NextRequest) {
             })
 
             //reset values
+            request.cookies.set("accessToken", newAccessToken)
             accessToken = newAccessToken
             decodedAccessToken = await jwtUtils.varifyToken(accessToken!, process.env.JWT_ACCESS_SECRETE as string)
         }

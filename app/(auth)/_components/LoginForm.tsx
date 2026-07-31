@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -16,10 +16,12 @@ import { useUserStore } from "@/lib/store/useUserStore";
 import { getMe } from "@/services/getMe";
 
 const LoginForm = () => {
-
-  const {setUser} = useUserStore();
+  const { setUser } = useUserStore();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo") ?? "";
 
   const {
     register,
@@ -41,15 +43,14 @@ const LoginForm = () => {
       formData.append("email", data.email);
       formData.append("password", data.password);
 
-      const result = await LoginAction(null, formData);
+      const result = await LoginAction(null, formData, redirectTo);
 
       if (result?.success) {
         toast.success(result.message || "Login successful!");
         const user = await getMe();
-        setUser(user)
-             router.refresh();
-        router.push("/");
-   
+        setUser(user);
+        router.refresh();
+        router.push(result.redirectTo || "/");
       } else {
         toast.error(result?.message || "Invalid credentials!");
       }
