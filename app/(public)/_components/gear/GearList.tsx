@@ -3,6 +3,7 @@ import { getGear } from "../../_actions/getGear";
 import GearCard from "./GearCard";
 import { IGear } from "@/lib/types";
 import { EmptyGearState } from "./EmptyGearState";
+import { GearPagination } from "./GearPagination";
 
 const GearList = async ({searchParams}: {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -19,6 +20,7 @@ const GearList = async ({searchParams}: {
       {gears.data.gearItems.map((gear: IGear) => (
         <GearCard key={gear.gearId} gear={gear} />
       ))}
+
     </div>
   );
 };

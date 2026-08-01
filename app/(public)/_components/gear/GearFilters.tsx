@@ -37,6 +37,8 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
       params.delete(key);
     }
 
+    params.set("page", "1");
+
     router.replace(`${pathname}?${params.toString()}`);
   };
 
@@ -68,6 +70,18 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
   const handleReset = () => {
     router.replace(pathname);
   };
+
+  const handleLimitChange = (value: string) => {
+  const params = new URLSearchParams(searchParams.toString());
+
+  if (value) {
+    params.set("limit", value);
+    params.set("page", "1");
+  }
+
+  router.replace(`${pathname}?${params.toString()}`);
+  router.refresh()
+};
 
   const currentSortBy = searchParams.get("sortBy");
   const currentSortOrder = searchParams.get("sortOrder");
@@ -148,6 +162,24 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
           </SelectContent>
         </Select>
       </div>
+
+      {/* 🔹 Items Per Page Dropdown */}
+<div className="w-full sm:w-36">
+  <Select
+    value={searchParams.get("limit") || "8"} // Default Limit (আপনার পছন্দমতো সেট করুন)
+    onValueChange={handleLimitChange}
+  >
+    <SelectTrigger className="h-10 rounded-xl">
+      <SelectValue placeholder="Limit" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectItem value="2">2 Per Page</SelectItem>
+      <SelectItem value="8">8 Per Page</SelectItem>
+      <SelectItem value="12">12 Per Page</SelectItem>
+      <SelectItem value="20">20 Per Page</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
 
       {/* 5. Reset Button */}
       <Button
