@@ -1,8 +1,8 @@
 "use client";
-import React, { useRef } from "react";
+
+import { useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -10,21 +10,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { SearchIcon, RotateCcw } from "lucide-react";
+import { GearFiltersProps } from "@/lib/types";
+import { getUniqueBrandCategory } from "@/utils/uniqueCategoryBrandHelper";
 
-// Example Options (আপনার প্রোজেক্টের ডাটা অনুযায়ী কাস্টমাইজ করুন)
-const CATEGORIES = ["Camping", "Hiking", "Photography", "Cycling", "Water Sports"];
-const BRANDS = ["The North Face", "Columbia", "Sony", "Canon", "Patagonia", "REI"];
-
-export function GearFilters() {
+export function GearFilters({ gearItems = [] }: GearFiltersProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  // console.log(gearItems);
+
+  const { categories, brands } = getUniqueBrandCategory(gearItems);
+
+  // console.log(categories, brands , "REsult");
+
   const debouncedReference = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // 🔄 Helper to Update Query Params without losing existing ones
-  const updateQueryParam = (key: string, value: string | null) => {
+  const updateQueryParam = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (value && value !== "all") {
@@ -36,7 +40,6 @@ export function GearFilters() {
     router.replace(`${pathname}?${params.toString()}`);
   };
 
-  // 🔍 Debounced Search Handler
   const handleSearchChange = (value: string) => {
     if (debouncedReference.current) {
       clearTimeout(debouncedReference.current);
@@ -47,12 +50,6 @@ export function GearFilters() {
     }, 300);
   };
 
-  // 🧹 Clear All Filters
-  const handleResetFilters = () => {
-    router.replace(pathname);
-  };
-
-  // Sort Option Splitter Helper (e.g. "price-asc" -> sortBy=price, sortOrder=asc)
   const handleSortChange = (combinedValue: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -68,17 +65,22 @@ export function GearFilters() {
     router.replace(`${pathname}?${params.toString()}`);
   };
 
-  // Current Sort Value Combination for Select Field
+  const handleReset = () => {
+    router.replace(pathname);
+  };
+
   const currentSortBy = searchParams.get("sortBy");
   const currentSortOrder = searchParams.get("sortOrder");
-  const currentSortValue = currentSortBy && currentSortOrder ? `${currentSortBy}-${currentSortOrder}` : "";
+  const currentSortValue =
+    currentSortBy && currentSortOrder
+      ? `${currentSortBy}-${currentSortOrder}`
+      : "";
 
-  const hasActiveFilters = searchParams.toString().length > 0;
 
   return (
     <div className="flex flex-col md:flex-row flex-wrap items-center gap-3 my-6 w-full">
       {/* 1. Search Bar */}
-      <div className="relative w-full md:w-72">
+      <div className="relative w-full md:w-64">
         <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           defaultValue={searchParams.get("searchTerm")?.toString() || ""}
@@ -88,7 +90,7 @@ export function GearFilters() {
         />
       </div>
 
-      {/* 2. Category Filter */}
+      {/* 2. Dynamic Category Select */}
       <div className="w-full sm:w-44">
         <Select
           value={searchParams.get("category") || "all"}
@@ -99,7 +101,7 @@ export function GearFilters() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Categories</SelectItem>
-            {CATEGORIES.map((cat) => (
+            {categories.map((cat) => (
               <SelectItem key={cat} value={cat}>
                 {cat}
               </SelectItem>
@@ -108,7 +110,7 @@ export function GearFilters() {
         </Select>
       </div>
 
-      {/* 3. Brand Filter */}
+      {/* 3. Dynamic Brand Select */}
       <div className="w-full sm:w-44">
         <Select
           value={searchParams.get("brand") || "all"}
@@ -119,9 +121,9 @@ export function GearFilters() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Brands</SelectItem>
-            {BRANDS.map((b) => (
-              <SelectItem key={b} value={b}>
-                {b}
+            {brands.map((brand) => (
+              <SelectItem key={brand} value={brand}>
+                {brand}
               </SelectItem>
             ))}
           </SelectContent>
@@ -135,28 +137,27 @@ export function GearFilters() {
           onValueChange={handleSortChange}
         >
           <SelectTrigger className="h-10 rounded-xl">
-            <SelectValue placeholder="Sort By" />
+            <SelectValue placeholder="Sort by" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Default Sorting</SelectItem>
             <SelectItem value="price-asc">Price: Low to High</SelectItem>
             <SelectItem value="price-desc">Price: High to Low</SelectItem>
+            <SelectItem value="stock-asc">Stock: Low to High</SelectItem>
             <SelectItem value="stock-desc">Stock: High to Low</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      {/* 5. Clear Filters Button */}
-      {hasActiveFilters && (
-        <Button
-          variant="ghost"
-          onClick={handleResetFilters}
-          className="h-10 rounded-xl px-3 text-muted-foreground hover:text-foreground gap-1.5"
-        >
-          <RotateCcw className="w-4 h-4" />
-          Reset
-        </Button>
-      )}
+      {/* 5. Reset Button */}
+      <Button
+        variant="ghost"
+        onClick={handleReset}
+        className="h-10 rounded-xl px-3 text-muted-foreground hover:text-foreground gap-1.5"
+      >
+        <RotateCcw className="w-4 h-4" />
+        Reset
+      </Button>
     </div>
   );
 }

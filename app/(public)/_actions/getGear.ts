@@ -5,8 +5,17 @@ export const getGear = async (options?: {
     const query = options?.query
     const params = new URLSearchParams()
 
-    if(query && query.searchTerm){
-        params.set("searchTerm", query.searchTerm as string)
+    // if(query && query.searchTerm){
+    //     params.set("searchTerm", query.searchTerm as string)
+    // }
+
+    if(query){
+        Object.keys(query).forEach((key) =>{
+            const value = query[key];
+            if(value) {
+                params.set(key, Array.isArray(value) ? value[0] : value )
+            }
+        })
     }
 
     

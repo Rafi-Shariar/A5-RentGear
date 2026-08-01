@@ -58,7 +58,7 @@ export default function GearCard({ gear }: GearItem) {
       return { text: "Out of Stock", color: "text-red-600 font-bold" };
     if (stock < 5)
       return { text: `${stock} left`, color: "text-amber-600 font-medium" };
-    return { text: "In Stock", color: "text-zinc-500 font-normal" };
+    return { text: `${stock} In Stock`, color: "text-zinc-500 font-normal" };
   };
 
   const stockStatus = getStockStatus(gear.stock);

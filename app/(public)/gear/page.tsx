@@ -3,11 +3,16 @@ import GearList from "../_components/gear/GearList";
 import GearGridSkeleton from "../_components/gear/GearGridSkeleton";
 import { SearchBar } from "../_components/gear/SearchBar";
 import { GearFilters } from "../_components/gear/GearFilters";
+import { getGear } from "../_actions/getGear";
+import { getCategoryBrand } from "../_actions/getCategoryBrand";
 
 
 const GearPage = async ({searchParams}: {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
+  
+  const gearRes = await getCategoryBrand();
+  const gearItems = gearRes.data.gearItems || []
 
 
   return (
@@ -27,7 +32,7 @@ const GearPage = async ({searchParams}: {
 
       <div>
         {/* <SearchBar/> */}
-        <GearFilters/>
+        <GearFilters gearItems={gearItems}/>
       </div>
       <div>
         <Suspense fallback={<GearGridSkeleton/>}>
