@@ -221,15 +221,15 @@ export default function UserTable({ users }: UserTableProps) {
             <DialogDescription className="text-slate-600 pt-2">
               Are you sure you want to change status for{" "}
               <span className="font-semibold text-slate-900">{selectedUser?.name}</span>?
-              {selectedUser?.accountStatus === "ACTIVE" ? (
-                <span className="mt-2 text-xs bg-rose-50 text-rose-700 p-2.5 rounded-lg border border-rose-200">
-                  ⚠️ This user will be blocked from logging into the platform and placing/managing orders.
+              {/* {selectedUser?.accountStatus === "ACTIVE" ? (
+                <span className="mt-4 text-xs bg-rose-50 text-rose-700 p-2.5 rounded-lg border border-rose-200">
+                  ⚠️ This user will be blocked from the platform.
                 </span>
               ) : (
                 <p className="mt-2 text-xs bg-emerald-50 text-emerald-700 p-2.5 rounded-lg border border-emerald-200">
                   ✅ Access will be restored, allowing full platform features.
                 </p>
-              )}
+              )} */}
             </DialogDescription>
           </DialogHeader>
 
