@@ -49,8 +49,12 @@ const LoginForm = () => {
         toast.success(result.message || "Login successful!");
         const user = await getMe();
         setUser(user);
+      
         router.refresh();
-        router.push(result.redirectTo || "/");
+        setTimeout(()=>[
+          router.push(result.redirectTo || "/")
+        ],100)
+          
       } else {
         toast.error(result?.message || "Invalid credentials!");
       }

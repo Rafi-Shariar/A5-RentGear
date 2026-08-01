@@ -72,7 +72,7 @@ export default function GearCard({ gear }: GearItem) {
       {/* Top Image Container: Fixed height aspect-ratio */}
       <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-zinc-100">
         {/* Status Badges & Wishlist */}
-        <div className="absolute left-3 top-3 right-3 flex items-center justify-between z-10">
+        {/* <div className="absolute left-3 top-3 right-3 flex items-center justify-between z-10">
           <button
             onClick={() => setIsWishlisted(!isWishlisted)}
             className="flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm transition-transform active:scale-90 hover:bg-white"
@@ -93,7 +93,7 @@ export default function GearCard({ gear }: GearItem) {
               />
             </svg>
           </button>
-        </div>
+        </div> */}
 
         {/* Clean, Proportionate Image */}
         <div className="relative h-full w-full p-4">
