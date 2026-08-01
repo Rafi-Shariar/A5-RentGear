@@ -41,7 +41,7 @@ const PaymentDetailsPage = async ({ params }: Props) => {
     return (
       <div className="min-h-[50vh] flex flex-col items-center justify-center gap-3">
         <p className="text-gray-600 font-medium">Payment Record Not Found</p>
-        <Link href="/dashboard/payments" className="text-sm text-primary underline">
+        <Link href="/dashboard/payment-history" className="text-sm text-primary underline">
           Back to Payments
         </Link>
       </div>
@@ -63,7 +63,7 @@ const PaymentDetailsPage = async ({ params }: Props) => {
       {/* Top Navigation */}
       <div className="flex items-center justify-between">
         <Link
-          href="/dashboard/payments"
+          href="/dashboard/payment-history"
           className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Payment History

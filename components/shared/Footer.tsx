@@ -11,7 +11,6 @@ import Image from "next/image";
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-//   TODO: create pages for footer links
 
   return (
     <footer className="w-full border-t border-zinc-200 bg-white text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-400 mt-16">

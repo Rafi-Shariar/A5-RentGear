@@ -9,15 +9,11 @@ export default function Home() {
   return (
     <div>
       <HeroCard />
-      {/* TODO: Add coursale of categories with images */}
 
       <GearContainer />
       <HowItWorksSection/>
       <NewsletterSection/>
 
-
-      {/* TODO: Add Steps Section */}
-      {/* TODO: Add Reviews Section*/}
     </div>
   );
 }
