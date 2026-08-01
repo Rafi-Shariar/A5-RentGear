@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Stoke } from "next/font/google";
 import { toast } from "sonner";
 import { PlaceOrderAction } from "../../_actions/orderActions";
+import { usePathname } from "next/navigation";
 
 interface RentBookingWidgetProps {
   price: number;
@@ -21,6 +22,7 @@ interface RentBookingWidgetProps {
 
 export const BookingWidget = ({ price, stock, gearId }: RentBookingWidgetProps) => {
   const { user } = useUserStore();
+  const pathname = usePathname()
 
   const bookingSchema = createRentBookingSchema(stock);
     const {
@@ -90,7 +92,7 @@ export const BookingWidget = ({ price, stock, gearId }: RentBookingWidgetProps) 
 
   return (
     <div>
-      {user ? (
+      {user?.data ? (
         <>
           <div className="sticky top-24 p-6 rounded-3xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl space-y-6">
             {/* Price Header */}
@@ -232,7 +234,7 @@ export const BookingWidget = ({ price, stock, gearId }: RentBookingWidgetProps) 
             </div>
 
             {/* Action Button */}
-            <Link href="/login" className="w-full pt-2">
+            <Link href={`/login?redirectTo=${encodeURIComponent(pathname)}`} className="w-full pt-2">
               <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
                 <LogIn className="w-4 h-4" />
                 <span>Login to Rent</span>
