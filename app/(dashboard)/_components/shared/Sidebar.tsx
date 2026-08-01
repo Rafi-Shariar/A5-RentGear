@@ -128,22 +128,7 @@ export default function Sidebar() {
 
           {/* Bottom Section: Profile & Action Buttons */}
           <div className="flex flex-col gap-3 pt-4 border-t border-zinc-800/80">
-            {/* User Info (Optional Preview) */}
-            {user?.data && (
-              <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-zinc-800/40 border border-zinc-800">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-zinc-700/60 text-zinc-300">
-                  <UserIcon className="h-4 w-4" />
-                </div>
-                <div className="flex flex-col min-w-0 flex-1">
-                  <span className="text-xs font-medium text-white truncate">
-                    {user.data.name || "User"}
-                  </span>
-                  <span className="text-[10px] text-zinc-400 truncate capitalize">
-                    {user.data.role?.toLowerCase()}
-                  </span>
-                </div>
-              </div>
-            )}
+            
 
             {/* Action Buttons */}
             <div className="flex flex-col gap-1">

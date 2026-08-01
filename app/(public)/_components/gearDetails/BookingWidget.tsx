@@ -47,8 +47,11 @@ export const BookingWidget = ({ price, stock, gearId }: RentBookingWidgetProps) 
     // Calculate estimated total days & cost
   const calculateDays = () => {
     if (!startDate || !endDate) return 1;
+
     const start = new Date(startDate);
     const end = new Date(endDate);
+
+    
     const diffTime = Math.abs(end.getTime() - start.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 1;
@@ -63,6 +66,11 @@ export const BookingWidget = ({ price, stock, gearId }: RentBookingWidgetProps) 
   const onSubmit = async (data: RentBookingFormValues) => {
     if (!user?.data) {
       toast.error("Please Login to place an order!");
+      return;
+    }
+
+    if( data.startDate === data.endDate){
+      toast.error("Both dates can not be same.")
       return;
     }
 

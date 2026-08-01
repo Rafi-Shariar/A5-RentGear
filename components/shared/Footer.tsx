@@ -91,7 +91,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link
-                  href="/gears?category=Cycling"
+                  href="/gear"
                   className="transition hover:text-primary"
                 >
                   Cycling & Bikes
@@ -99,7 +99,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/gears?category=Camping"
+                  href="/gears"
                   className="transition hover:text-primary"
                 >
                   Camping & Hiking
@@ -107,7 +107,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/gears?category=Photography"
+                  href="/gears"
                   className="transition hover:text-primary"
                 >
                   Cameras & Photography
@@ -115,7 +115,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/gears?category=WaterSports"
+                  href="/gears"
                   className="transition hover:text-primary"
                 >
                   Water Sports
@@ -132,7 +132,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link
-                  href="/dashboard/add-gear"
+                  href="/register"
                   className="transition hover:text-primary"
                 >
                   List Your Gear
@@ -152,7 +152,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="transition hover:text-primary">
+                <Link href="/how-it-works" className="transition hover:text-primary">
                   FAQs & Support
                 </Link>
               </li>
