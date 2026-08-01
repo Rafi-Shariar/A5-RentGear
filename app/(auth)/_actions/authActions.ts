@@ -95,7 +95,7 @@ export const LoginAction = async (
 
   return {
     success : false,
-    message : "User role not recognized!"
+    message : "Wrong password or email. Try again."
   }
 };
 

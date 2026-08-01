@@ -364,3 +364,11 @@ export interface IUpdateUserPayload {
   address?: string;
   photoURL?: string | null;
 }
+
+
+
+export interface IUpdatePasswordPayload {
+  currentPassword : string;
+  newPassword : string;
+
+}
