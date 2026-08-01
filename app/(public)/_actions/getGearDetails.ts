@@ -1,4 +1,4 @@
-
+'use server'
 export const getGearDetails = async ( id : string) =>{
 
     try {

@@ -356,3 +356,11 @@ export interface GearItem {
 export interface GearFiltersProps {
   gearItems?: GearItem[];
 }
+
+export interface IUpdateUserPayload {
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+  address?: string;
+  photoURL?: string | null;
+}
