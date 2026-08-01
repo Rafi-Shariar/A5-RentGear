@@ -30,9 +30,9 @@ export default function Navbar() {
 
   let dashboardRoute;
 
-  if(user?.data.role === "CUSTOMER") dashboardRoute = "/dashboard"
-  else if (user?.data.role === "PROVIDER") dashboardRoute = "/provider-dashboard"
-  else if (user?.data.role === "ADMIN") dashboardRoute = "/admin-dashboard"
+  if(user?.data?.role === "CUSTOMER") dashboardRoute = "/dashboard"
+  else if (user?.data?.role === "PROVIDER") dashboardRoute = "/provider-dashboard"
+  else if (user?.data?.role === "ADMIN") dashboardRoute = "/admin-dashboard"
   else dashboardRoute = "";
 
 
@@ -115,8 +115,8 @@ export default function Navbar() {
             aria-haspopup="true"
           >
             <Image
-              src={user.data.photoURL}
-              alt={`${user.data.name}'s avatar`}
+              src={user?.data?.photoURL}
+              alt={`${user?.data?.name}'s avatar`}
               width={36}
               height={36}
               priority
@@ -131,10 +131,10 @@ export default function Navbar() {
               {/* User Info Header */}
               <div className="px-4 py-2.5 border-b border-zinc-100 dark:border-zinc-800/80">
                 <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">
-                  {user.data.name}
+                  {user?.data?.name}
                 </p>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate mt-0.5">
-                  {user.data.email}
+                  {user?.data?.email}
                 </p>
               </div>
 

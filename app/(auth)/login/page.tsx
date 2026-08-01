@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginForm from '../_components/LoginForm';
-import LoginImage from '@/assets/LoginImage.png'; // আপনার ফাইল পাথ অনুযায়ী টিউন করতে পারেন
+import LoginImage from '@/assets/LoginImage.png'; 
 
 const LoginPage = () => {
   return (
