@@ -99,7 +99,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/gears"
+                  href="/gear"
                   className="transition hover:text-primary"
                 >
                   Camping & Hiking
@@ -107,7 +107,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/gears"
+                  href="/gear"
                   className="transition hover:text-primary"
                 >
                   Cameras & Photography
@@ -115,7 +115,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/gears"
+                  href="/gear"
                   className="transition hover:text-primary"
                 >
                   Water Sports
@@ -187,13 +187,13 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row text-xs text-zinc-500 dark:text-zinc-400">
             <p>© {currentYear} RentGear. All rights reserved.</p>
             <div className="flex gap-6">
-              <Link href="/privacy" className="transition hover:text-primary">
+              <Link href="/how-it-works" className="transition hover:text-primary">
                 Privacy Policy
               </Link>
-              <Link href="/terms" className="transition hover:text-primary">
+              <Link href="/how-it-works" className="transition hover:text-primary">
                 Terms of Service
               </Link>
-              <Link href="/cookies" className="transition hover:text-primary">
+              <Link href="/how-it-works" className="transition hover:text-primary">
                 Cookie Settings
               </Link>
             </div>
