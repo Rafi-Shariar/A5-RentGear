@@ -8,7 +8,7 @@ export const calculatedDashboardMatrics = (overview: OverviewData ) =>{
     const pendingOrders = orders?.filter( (order) => order.status === "PLACED").length;
 
     const totalSpend = orders?.reduce( (sum,order) =>{
-        if(order.status !== "CANCELLED" && order.status !== "PLACED"){
+        if(order.status !== "CANCELLED" && order.status !== "PLACED" && order.status !== "CONFIRMED"){
             return sum + order.totalAmount;
         }
 

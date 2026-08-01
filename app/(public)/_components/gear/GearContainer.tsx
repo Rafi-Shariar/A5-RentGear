@@ -4,6 +4,7 @@ import { getGear } from "../../_actions/getGear";
 import GearGridSkeleton from "./GearGridSkeleton";
 import GearListHome from "./GearListHome";
 import { EmptyGearState } from "./EmptyGearState";
+import { Button } from "@/components/ui/button";
 
 const GearContainer = async () => {
 
@@ -34,6 +35,10 @@ const GearContainer = async () => {
         <Suspense fallback={<GearGridSkeleton/>}>
             <GearListHome/>
         </Suspense>
+      </div>
+
+      <div>
+       
       </div>
     </div>
   );

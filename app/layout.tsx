@@ -19,6 +19,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 export const metadata: Metadata = {
   title: "RentGear",
   description: "A modern gear renting service",
+  
 };
 
 export default async function RootLayout({

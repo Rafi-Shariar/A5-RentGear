@@ -80,7 +80,6 @@ export function RentBookingModal({
     }
 
 
-
     try {
       const payload = {
         gearId: gear.gearId,

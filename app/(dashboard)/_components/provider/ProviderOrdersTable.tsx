@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/select";
 import { IProviderOrder, OrderStatus, ProviderOrdersTableProps } from "@/lib/types";
 import { updateOrderStatusAction } from "../../_actions/provider_actions/orderAction";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ALL_STATUSES: OrderStatus[] = [ "PLACED", "CONFIRMED", "PAID", "PICKED_UP", "RETURNED", "CANCELLED", ];
 
@@ -43,8 +44,8 @@ export const ProviderOrdersTable = ({ orders }: ProviderOrdersTableProps) => {
   const [selectedOrder, setSelectedOrder] = useState<IProviderOrder | null>(null);
   const [newStatus, setNewStatus] = useState<OrderStatus | "">("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const queryClient = useQueryClient();
 
-  // Status Badge Styling
   const getStatusBadge = (status: OrderStatus) => {
     switch (status) {
       case "PAID":
@@ -77,6 +78,8 @@ export const ProviderOrdersTable = ({ orders }: ProviderOrdersTableProps) => {
 
       if(res.success){
           toast.success(`Order status updated to ${newStatus}`);
+          queryClient.invalidateQueries({queryKey:["customer-orders"]})
+
           setSelectedOrder(null);
       }
       else{
