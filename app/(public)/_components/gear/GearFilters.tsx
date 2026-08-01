@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { SearchIcon, RotateCcw } from "lucide-react";
+import { SearchIcon, RotateCcw, SlidersHorizontal, Briefcase, ArrowUpDown, Tag, Layers } from "lucide-react";
 import { GearFiltersProps } from "@/lib/types";
 import { getUniqueBrandCategory } from "@/utils/uniqueCategoryBrandHelper";
 
@@ -92,28 +92,57 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
 
 
   return (
-    <div className="flex flex-col md:flex-row flex-wrap items-center gap-3 my-6 w-full">
-      {/* 1. Search Bar */}
-      <div className="relative w-full md:w-64">
-        <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          defaultValue={searchParams.get("searchTerm")?.toString() || ""}
-          onChange={(e) => handleSearchChange(e.target.value)}
-          placeholder="Search gears..."
-          className="pl-9 h-10 rounded-xl"
-        />
+    <div className="flex flex-col gap-5 w-full">
+      {/* Sidebar Header */}
+      <div className="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800">
+        <div className="flex items-center gap-2">
+          <SlidersHorizontal className="w-4 h-4 text-primary" />
+          <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+            Filters
+          </h3>
+        </div>
+        
+        {/* Reset Button (Top Action) */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleReset}
+          className="h-8 px-2 text-xs text-zinc-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors gap-1.5 rounded-lg"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          Reset
+        </Button>
+      </div>
+
+      {/* 1. Search Bar Input */}
+      <div className="space-y-1.5">
+        <label className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
+          Search
+        </label>
+        <div className="relative w-full">
+          <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-zinc-400" />
+          <Input
+            defaultValue={searchParams.get("searchTerm")?.toString() || ""}
+            onChange={(e) => handleSearchChange(e.target.value)}
+            placeholder="Camera, Lens, Drone..."
+            className="pl-9 h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 focus-visible:ring-primary/20 text-sm"
+          />
+        </div>
       </div>
 
       {/* 2. Dynamic Category Select */}
-      <div className="w-full sm:w-44">
+      <div className="space-y-1.5">
+        <label className="text-xs font-medium text-zinc-600 dark:text-zinc-400 flex items-center gap-1.5">
+          <Tag className="w-3.5 h-3.5 text-zinc-400" /> Category
+        </label>
         <Select
           value={searchParams.get("category") || "all"}
           onValueChange={(val) => updateQueryParam("category", val)}
         >
-          <SelectTrigger className="h-10 rounded-xl">
-            <SelectValue placeholder="Category" />
+          <SelectTrigger className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 focus:ring-primary/20 text-sm">
+            <SelectValue placeholder="All Categories" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="rounded-xl">
             <SelectItem value="all">All Categories</SelectItem>
             {categories.map((cat) => (
               <SelectItem key={cat} value={cat}>
@@ -125,15 +154,18 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
       </div>
 
       {/* 3. Dynamic Brand Select */}
-      <div className="w-full sm:w-44">
+      <div className="space-y-1.5">
+        <label className="text-xs font-medium text-zinc-600 dark:text-zinc-400 flex items-center gap-1.5">
+          <Briefcase className="w-3.5 h-3.5 text-zinc-400" /> Brand
+        </label>
         <Select
           value={searchParams.get("brand") || "all"}
           onValueChange={(val) => updateQueryParam("brand", val)}
         >
-          <SelectTrigger className="h-10 rounded-xl">
-            <SelectValue placeholder="Brand" />
+          <SelectTrigger className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 focus:ring-primary/20 text-sm">
+            <SelectValue placeholder="All Brands" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="rounded-xl">
             <SelectItem value="all">All Brands</SelectItem>
             {brands.map((brand) => (
               <SelectItem key={brand} value={brand}>
@@ -145,15 +177,18 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
       </div>
 
       {/* 4. Sort By & Sort Order Combined */}
-      <div className="w-full sm:w-48">
+      <div className="space-y-1.5">
+        <label className="text-xs font-medium text-zinc-600 dark:text-zinc-400 flex items-center gap-1.5">
+          <ArrowUpDown className="w-3.5 h-3.5 text-zinc-400" /> Sort By
+        </label>
         <Select
           value={currentSortValue || "all"}
           onValueChange={handleSortChange}
         >
-          <SelectTrigger className="h-10 rounded-xl">
-            <SelectValue placeholder="Sort by" />
+          <SelectTrigger className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 focus:ring-primary/20 text-sm">
+            <SelectValue placeholder="Default Sorting" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="rounded-xl">
             <SelectItem value="all">Default Sorting</SelectItem>
             <SelectItem value="price-asc">Price: Low to High</SelectItem>
             <SelectItem value="price-desc">Price: High to Low</SelectItem>
@@ -163,33 +198,26 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
         </Select>
       </div>
 
-      {/* 🔹 Items Per Page Dropdown */}
-<div className="w-full sm:w-36">
-  <Select
-    value={searchParams.get("limit") || "8"} // Default Limit (আপনার পছন্দমতো সেট করুন)
-    onValueChange={handleLimitChange}
-  >
-    <SelectTrigger className="h-10 rounded-xl">
-      <SelectValue placeholder="Limit" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem value="2">2 Per Page</SelectItem>
-      <SelectItem value="8">8 Per Page</SelectItem>
-      <SelectItem value="12">12 Per Page</SelectItem>
-      <SelectItem value="20">20 Per Page</SelectItem>
-    </SelectContent>
-  </Select>
-</div>
-
-      {/* 5. Reset Button */}
-      <Button
-        variant="ghost"
-        onClick={handleReset}
-        className="h-10 rounded-xl px-3 text-muted-foreground hover:text-foreground gap-1.5"
-      >
-        <RotateCcw className="w-4 h-4" />
-        Reset
-      </Button>
+      {/* 5. Items Per Page Dropdown */}
+      <div className="space-y-1.5">
+        <label className="text-xs font-medium text-zinc-600 dark:text-zinc-400 flex items-center gap-1.5">
+          <Layers className="w-3.5 h-3.5 text-zinc-400" /> Items Per Page
+        </label>
+        <Select
+          value={searchParams.get("limit") || "8"}
+          onValueChange={handleLimitChange}
+        >
+          <SelectTrigger className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 focus:ring-primary/20 text-sm">
+            <SelectValue placeholder="Limit" />
+          </SelectTrigger>
+          <SelectContent className="rounded-xl">
+            <SelectItem value="4">4 Per Page</SelectItem>
+            <SelectItem value="8">8 Per Page</SelectItem>
+            <SelectItem value="12">12 Per Page</SelectItem>
+            <SelectItem value="20">20 Per Page</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 }
