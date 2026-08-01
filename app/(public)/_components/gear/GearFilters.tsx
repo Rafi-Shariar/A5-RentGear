@@ -211,10 +211,10 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
             <SelectValue placeholder="Limit" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
-            <SelectItem value="4">4 Per Page</SelectItem>
-            <SelectItem value="8">8 Per Page</SelectItem>
+            <SelectItem value="6">6 Per Page</SelectItem>
             <SelectItem value="12">12 Per Page</SelectItem>
-            <SelectItem value="20">20 Per Page</SelectItem>
+            <SelectItem value="18">18 Per Page</SelectItem>
+            <SelectItem value="24">24 Per Page</SelectItem>
           </SelectContent>
         </Select>
       </div>

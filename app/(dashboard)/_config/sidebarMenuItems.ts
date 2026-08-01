@@ -5,7 +5,7 @@ const CUSTOMER_SIDEBAR_ITEMS : ISidebarItem[] = [
     { label : "Dashboard", href:'/dashboard', icon : LayoutDashboard},
     { label : "My Orders", href:'/dashboard/my-orders', icon : ShoppingCart},
     { label : "Payment Histoty", href:'/dashboard/payment-history', icon : BadgeDollarSign},
-    { label : "Back Home", href:'/', icon : ArrowLeftToLine},
+
 ]
 
 const PROVIDER_SIDEBAR_ITEMS : ISidebarItem[] = [
@@ -13,7 +13,7 @@ const PROVIDER_SIDEBAR_ITEMS : ISidebarItem[] = [
     { label : "Add New Gear", href:'/provider-dashboard/add-gear', icon : CirclePlus},
     { label : "My Gears", href:'/provider-dashboard/my-gears', icon : PackageSearch},
     { label : "My Orders", href:'/provider-dashboard/my-orders', icon : ClockArrowRightIcon},
-    { label : "Back Home", href:'/', icon : ArrowLeftToLine},
+
 ]
 
 const ADMIN_SIDEBAR_ITEMS : ISidebarItem[] = [
@@ -22,7 +22,7 @@ const ADMIN_SIDEBAR_ITEMS : ISidebarItem[] = [
     { label : "User List", href:'/admin-dashboard/users', icon : Users},
     { label : "Gear List", href:'/admin-dashboard/gears', icon : PackageSearch},
     { label : "Order List", href:'/admin-dashboard/orders', icon : BadgeDollarSign},
-    { label : "Back Home", href:'/', icon : ArrowLeftToLine},
+
 ]
 
 export const sidebarMenuItems = {

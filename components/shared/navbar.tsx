@@ -52,7 +52,7 @@ export default function Navbar() {
     setIsDropdownOpen(false);
     await logout();
     clearUser();
-    router.push('/login');
+    router.push('/');
     router.refresh();
   };
 
