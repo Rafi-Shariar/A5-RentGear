@@ -58,7 +58,7 @@ export const DeleteConfirmModal = ({
           <AlertDialogAction
             disabled={isLoading}
             onClick={(e) => {
-              e.preventDefault(); // মোডাল অটো-ক্লোজ হওয়া বন্ধ রেখে মিউটেশন শেষ হওয়া পর্যন্ত ওয়েট করাতে
+              e.preventDefault(); 
               onConfirm();
             }}
             className="inline-flex items-center gap-1.5 rounded-xl bg-rose-600 px-4 text-xs font-medium text-white transition-colors hover:bg-rose-700 dark:bg-rose-600 dark:hover:bg-rose-500 cursor-pointer"
