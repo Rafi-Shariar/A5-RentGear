@@ -1,3 +1,4 @@
+'use server'
 export const getGear = async (options?: {
   query?: { [key: string]: string | string[] | undefined };
 }) => {
@@ -21,10 +22,6 @@ export const getGear = async (options?: {
     
     const res = await fetch(`${process.env.BACKEND_API_URL}/api/gear?${params.toString()}`, {
         cache : "no-store",
-        // next : {
-        //     revalidate : 60 * 60 * 1,
-        //     tags: ["gears"]
-        // }
     })
 
     const result = await res.json();

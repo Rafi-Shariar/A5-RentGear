@@ -204,7 +204,7 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
           <Layers className="w-3.5 h-3.5 text-zinc-400" /> Items Per Page
         </label>
         <Select
-          value={searchParams.get("limit") || "8"}
+          value={searchParams.get("limit") || "9"}
           onValueChange={handleLimitChange}
         >
           <SelectTrigger className="h-10 rounded-xl bg-zinc-50/50 dark:bg-zinc-800/40 border-zinc-200 dark:border-zinc-700/60 focus:ring-primary/20 text-sm">
@@ -212,6 +212,7 @@ export function GearFilters({ gearItems = [] }: GearFiltersProps) {
           </SelectTrigger>
           <SelectContent className="rounded-xl">
             <SelectItem value="6">6 Per Page</SelectItem>
+            <SelectItem value="9">9 Per Page</SelectItem>
             <SelectItem value="12">12 Per Page</SelectItem>
             <SelectItem value="18">18 Per Page</SelectItem>
             <SelectItem value="24">24 Per Page</SelectItem>

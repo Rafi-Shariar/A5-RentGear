@@ -15,7 +15,7 @@ export function GearPagination({ meta }: { meta?: Meta }) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  console.log(meta);
+  // console.log(meta);
   
 
   if (!meta || meta.totalPages < 1) return null;
