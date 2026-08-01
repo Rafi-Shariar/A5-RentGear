@@ -28,8 +28,8 @@ export const PlaceOrderAction = async (payload: INewOrder) => {
 
     if (result.success) {
       revalidateTag("my-orders", { expire: 0 });
-      revalidatePath("/dashbaord");
-      revalidatePath("/dashbaord/my-orders");
+      revalidatePath("/dashboard");
+      revalidatePath("/dashboard/my-orders");
     }
 
     return result;

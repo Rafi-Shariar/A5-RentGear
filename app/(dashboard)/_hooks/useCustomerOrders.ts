@@ -16,7 +16,6 @@ export const useCustomerOrders = () =>{
 
             return orders;
  
-        },
-        staleTime : 1000 * 60 * 2
+        }
     })
 }

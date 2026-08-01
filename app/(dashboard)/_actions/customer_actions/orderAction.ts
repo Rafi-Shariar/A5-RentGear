@@ -20,7 +20,6 @@ export const getCustomerOrders = async () => {
         "Content-Type" : "application/json",
          Cookie : `accessToken=${accessToken}`
        },
-       cache : "no-cache",
        
     })
 
@@ -69,7 +68,7 @@ export const deleteOrderAction = async ( orderId : string) =>{
       throw new Error(result.message || "Failed to delete order.");
     }
 
-    revalidateTag("dashbaord-overview",{ expire: 0 });
+    revalidateTag("dashboard-overview",{ expire: 0 });
 
    
 

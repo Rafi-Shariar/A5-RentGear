@@ -33,7 +33,7 @@ const PaymentDetailsPage = async ({ params }: Props) => {
     );
   }
 
-  // Fetching data on the server
+ 
   const payment = await getPaymentDetails(id);
 
 
@@ -51,7 +51,6 @@ const PaymentDetailsPage = async ({ params }: Props) => {
   const { order } = payment;
   const { gear } = order;
 
-  // Rental Duration Calculation (in Days)
   const collectionDate = new Date(order.collectionDate);
   const returnDate = new Date(order.returnDate);
   const rentalDays = Math.ceil(

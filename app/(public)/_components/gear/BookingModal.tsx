@@ -13,6 +13,7 @@ import { useUserStore } from "@/lib/store/useUserStore";
 import { PlaceOrderAction } from "../../_actions/orderActions";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface RentBookingModalProps {
   gear: IGear;
@@ -27,6 +28,7 @@ export function RentBookingModal({
 }: RentBookingModalProps) {
   const bookingSchema = createRentBookingSchema(gear.stock);
   const { user } = useUserStore();
+    const queryClient = useQueryClient();
 
   const {
     register,
@@ -62,6 +64,8 @@ export function RentBookingModal({
   const totalDays = calculateDays();
   const estimatedTotal = gear.price * quantity * totalDays;
 
+
+
   const onSubmit = async (data: RentBookingFormValues) => {
     if (!user?.data) {
       toast.error("Please Login to place an order!");
@@ -74,6 +78,8 @@ export function RentBookingModal({
       return;
 
     }
+
+
 
     try {
       const payload = {
@@ -88,6 +94,8 @@ export function RentBookingModal({
 
       if (result?.success) {
         toast.success(result.message || "Order Placed successfully.");
+        queryClient.invalidateQueries({queryKey:["customer-orders"]})
+
         reset(); 
         onClose(); 
       } else {

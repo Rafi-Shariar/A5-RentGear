@@ -1,13 +1,42 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { CreditCard, ExternalLink, ArrowRight, Loader2, CheckCircle2, Clock } from "lucide-react";
-import { usePaymentHistory } from "../../_hooks/usePaymentHistory";
+import { CreditCard, ArrowRight, Loader2, CheckCircle2, Clock } from "lucide-react";
 import { PaymentItem } from "@/lib/types";
+import { getMyPayments } from "../../_actions/customer_actions/paymentAction";
 
 export default function PaymentHistoryPage() {
-  const { payments, isLoading, isError } = usePaymentHistory();
+  const [payments, setPayments] = useState<PaymentItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        setIsLoading(true);
+        setIsError(false);
+        
+        const res = await getMyPayments();
+
+        // console.log(res.data);
+        
+      
+        if (res?.data) {
+          setPayments(res.data);
+        } else if (Array.isArray(res)) {
+          setPayments(res);
+        }
+      } catch (error) {
+        console.error("Failed to fetch payments:", error);
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPayments();
+  }, []);
 
   if (isLoading) {
     return (
@@ -71,7 +100,7 @@ export default function PaymentHistoryPage() {
 
                   {/* Order ID */}
                   <td className="px-6 py-4 font-mono text-xs text-zinc-500">
-                    #{item.orderId.slice(0, 8)}
+                    #{item.orderId?.slice(0, 8)}
                   </td>
 
                   {/* Date */}
@@ -85,7 +114,7 @@ export default function PaymentHistoryPage() {
 
                   {/* Amount */}
                   <td className="whitespace-nowrap px-6 py-4 font-bold text-zinc-900 dark:text-zinc-100">
-                    ৳{item.amount.toLocaleString()}
+                    ৳{item.amount?.toLocaleString()}
                   </td>
 
                   {/* Method */}

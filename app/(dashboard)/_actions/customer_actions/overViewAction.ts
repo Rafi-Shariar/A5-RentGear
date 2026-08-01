@@ -38,7 +38,7 @@ export const overviewAction = async () => {
 
     
   } catch (error) {
-    console.error("Dashbaord Error: ", error);
+    console.error("dashboard Error: ", error);
     return {
       success: false,
       message: "Internal Server Error. Try again later.",
