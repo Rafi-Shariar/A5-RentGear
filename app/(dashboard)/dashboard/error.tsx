@@ -58,7 +58,7 @@ export default function Error({
           </Button>
 
           {/* Go Home Button */}
-          <Link href="/admin-dashbaord" className="w-full sm:w-auto">
+          <Link href="/" className="w-full sm:w-auto">
             <Button
               variant="outline"
               className="w-full gap-2 rounded-xl border-zinc-300 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 px-5"
