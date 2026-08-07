@@ -94,7 +94,7 @@ export default function Navbar() {
                 className={`transition-colors ${
                   isActive
                     ? "text-primary  font-semibold underline"
-                    : "text-zinc-800 "
+                    : "text-zinc-800 dark:text-white"
                 }`}
               >
                 {label}

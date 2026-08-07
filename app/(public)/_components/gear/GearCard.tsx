@@ -67,7 +67,7 @@ export default function GearCard({ gear }: GearItem) {
     <>
     <div
       ref={cardRef}
-      className="w-full max-w-95 overflow-hidden rounded-2xl border border-primary/40  bg-white p-3 shadow-xl  transition-shadow"
+      className="w-full max-w-95 overflow-hidden rounded-2xl border border-primary/40  bg-white p-3 shadow-xl  transition-shadow dark:bg-zinc-900"
     >
       {/* Top Image Container: Fixed height aspect-ratio */}
       <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl bg-zinc-100">
@@ -118,12 +118,12 @@ export default function GearCard({ gear }: GearItem) {
         </div>
 
         {/* Title */}
-        <h3 className="mt-1.5 text-base font-semibold text-zinc-900 line-clamp-1 hover:line-clamp-none transition-all">
+        <h3 className="mt-1.5 text-base font-semibold text-zinc-900 line-clamp-1 hover:line-clamp-none transition-all dark:text-slate-200">
           {gear.title}
         </h3>
 
         {/* Price */}
-        <p className="mt-1 text-lg font-bold text-zinc-900">
+        <p className="mt-1 text-lg font-bold text-zinc-900 dark:text-white">
           {formatUSD(gear.price)}{" "}
           <span className="text-sm text-slate-400">/ day</span>
         </p>
