@@ -8,6 +8,7 @@ import { UserStoreInitializer } from "./(public)/_components/UserStoreInitialize
 import { GlobalScrollReset } from "@/components/shared/ScrollToTop";
 import TanstackProvider from "@/providers/tanstackProvider";
 import SWRProvider from "@/providers/SWRProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const robotoHeading = Roboto({
   subsets: ["latin"],
@@ -43,7 +44,16 @@ export default async function RootLayout({
         <UserStoreInitializer user={user} />
         <GlobalScrollReset />
         <TanstackProvider>
-          <SWRProvider>{children}</SWRProvider>
+          <SWRProvider>
+            <ThemeProvider
+            attribute="class"
+          
+          enableSystem
+          disableTransitionOnChange
+            >
+            {children}
+            </ThemeProvider>
+            </SWRProvider>
         </TanstackProvider>
 
         <Toaster position="top-right" richColors />

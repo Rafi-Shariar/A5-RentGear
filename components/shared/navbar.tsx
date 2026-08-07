@@ -10,6 +10,7 @@ import { NavbarUser } from "@/lib/types";
 import { logout } from "@/services/logout";
 import { useUserStore } from "@/lib/store/useUserStore";
 import { ArrowRight, LogIn } from "lucide-react";
+import { ThemeToggleButton } from "./ThemeToggleButton";
 
 const NAV_LINKS = [
   { href: "/gear", label: "Gears" },
@@ -105,6 +106,13 @@ export default function Navbar() {
         {/* Right: Profile Avatar & Responsive Dropdown Menu */}
 
         <div>
+        </div>
+
+        <div className="flex items-center md:gap-6">
+          <div>
+            <ThemeToggleButton/>
+          </div>
+
           {isLoggedIn ? (
             <>
               <div className="relative z-10" ref={dropdownRef}>
