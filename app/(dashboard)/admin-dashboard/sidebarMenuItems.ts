@@ -16,8 +16,6 @@ const PROVIDER_SIDEBAR_ITEMS : ISidebarItem[] = [
     { label : "Add New Gear", href:'/provider-dashboard/add-gear', icon : CirclePlus},
     { label : "My Gears", href:'/provider-dashboard/my-gears', icon : PackageSearch},
     { label : "My Orders", href:'/provider-dashboard/my-orders', icon : ClockArrowRightIcon},
-     { label : "My Profile", href:'/provider-dashboard/my-profile', icon : UserPen},
-    { label : "Change Password", href:'/provider-dashboard/password', icon : Key},
 
 ]
 
@@ -27,8 +25,6 @@ const ADMIN_SIDEBAR_ITEMS : ISidebarItem[] = [
     { label : "User List", href:'/admin-dashboard/users', icon : Users},
     { label : "Gear List", href:'/admin-dashboard/gears', icon : PackageSearch},
     { label : "Order List", href:'/admin-dashboard/orders', icon : BadgeDollarSign},
-     { label : "My Profile", href:'/admin-dashboard/my-profile', icon : UserPen},
-    { label : "Change Password", href:'/admin-dashboard/password', icon : Key},
 
 ]
 
