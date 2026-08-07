@@ -107,30 +107,33 @@ export default function UserTable({ users }: UserTableProps) {
   return (
     <>
       {/* Desktop & Tablet Table View */}
-      <div className="hidden md:block rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+      <div className="hidden md:block rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm overflow-hidden transition-colors">
         <Table>
-          <TableHeader className="bg-slate-50/80">
-            <TableRow>
-              <TableHead className="w-[250px]">User</TableHead>
-              <TableHead>Contact Info</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Action</TableHead>
+          <TableHeader className="bg-slate-50/80 dark:bg-zinc-800/60">
+            <TableRow className="border-b border-slate-200 dark:border-zinc-800 hover:bg-transparent">
+              <TableHead className="w-[250px] text-slate-700 dark:text-zinc-300">User</TableHead>
+              <TableHead className="text-slate-700 dark:text-zinc-300">Contact Info</TableHead>
+              <TableHead className="text-slate-700 dark:text-zinc-300">Role</TableHead>
+              <TableHead className="text-slate-700 dark:text-zinc-300">Status</TableHead>
+              <TableHead className="text-right text-slate-700 dark:text-zinc-300">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {users.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="h-32 text-center text-slate-500">
+                <TableCell colSpan={5} className="h-32 text-center text-slate-500 dark:text-zinc-400">
                   No users found.
                 </TableCell>
               </TableRow>
             ) : (
               users.map((user) => (
-                <TableRow key={user.userId} className="hover:bg-slate-50/50 transition-colors">
+                <TableRow 
+                  key={user.userId} 
+                  className="border-b border-slate-100 dark:border-zinc-800 hover:bg-slate-50/50 dark:hover:bg-zinc-800/40 transition-colors"
+                >
                   <TableCell>
                     <div className="flex items-center gap-3">
-                      <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-200 shrink-0 bg-slate-100">
+                      <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-200 dark:border-zinc-700 shrink-0 bg-slate-100 dark:bg-zinc-800">
                         <Image
                           src={user.photoURL || "/placeholder-avatar.png"}
                           alt={user.name}
@@ -139,15 +142,15 @@ export default function UserTable({ users }: UserTableProps) {
                         />
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <span className="font-semibold text-slate-900 truncate text-sm">{user.name}</span>
-                        <span className="text-xs text-slate-500 truncate">{user.address}</span>
+                        <span className="font-semibold text-slate-900 dark:text-zinc-100 truncate text-sm">{user.name}</span>
+                        <span className="text-xs text-slate-500 dark:text-zinc-400 truncate">{user.address}</span>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="flex flex-col text-xs text-slate-600 gap-0.5">
-                      <span className="flex items-center gap-1.5"><Mail className="w-3 h-3 text-slate-400" /> {user.email}</span>
-                      <span className="flex items-center gap-1.5"><Phone className="w-3 h-3 text-slate-400" /> {user.phoneNumber}</span>
+                    <div className="flex flex-col text-xs text-slate-600 dark:text-zinc-300 gap-0.5">
+                      <span className="flex items-center gap-1.5"><Mail className="w-3 h-3 text-slate-400 dark:text-zinc-500" /> {user.email}</span>
+                      <span className="flex items-center gap-1.5"><Phone className="w-3 h-3 text-slate-400 dark:text-zinc-500" /> {user.phoneNumber}</span>
                     </div>
                   </TableCell>
                   <TableCell>{getRoleBadge(user.role)}</TableCell>
@@ -157,7 +160,7 @@ export default function UserTable({ users }: UserTableProps) {
                       variant="outline"
                       size="sm"
                       onClick={() => handleOpenModal(user)}
-                      className="text-xs font-medium"
+                      className="text-xs font-medium border-slate-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
                     >
                       Change Status
                     </Button>
@@ -172,14 +175,14 @@ export default function UserTable({ users }: UserTableProps) {
       {/* Mobile Responsive View (Cards) */}
       <div className="grid grid-cols-1 gap-4 md:hidden">
         {users.map((user) => (
-          <div key={user.userId} className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm space-y-3">
+          <div key={user.userId} className="p-4 bg-white dark:bg-zinc-900 rounded-xl border border-slate-200 dark:border-zinc-800 shadow-sm space-y-3 transition-colors">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-slate-200 bg-slate-100 shrink-0">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-slate-200 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 shrink-0">
                   <Image src={user.photoURL} alt={user.name} fill className="object-cover" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 text-sm">{user.name}</h3>
+                  <h3 className="font-semibold text-slate-900 dark:text-zinc-100 text-sm">{user.name}</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     {getRoleBadge(user.role)}
                     {getStatusBadge(user.accountStatus)}
@@ -188,17 +191,17 @@ export default function UserTable({ users }: UserTableProps) {
               </div>
             </div>
 
-            <div className="space-y-1.5 pt-2 border-t border-slate-100 text-xs text-slate-600">
-              <p className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" /> {user.email}</p>
-              <p className="flex items-center gap-2"><Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" /> {user.phoneNumber}</p>
-              <p className="flex items-start gap-2"><MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" /> {user.address}</p>
+            <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-zinc-800 text-xs text-slate-600 dark:text-zinc-300">
+              <p className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 shrink-0" /> {user.email}</p>
+              <p className="flex items-center gap-2"><Phone className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 shrink-0" /> {user.phoneNumber}</p>
+              <p className="flex items-start gap-2"><MapPin className="w-3.5 h-3.5 text-slate-400 dark:text-zinc-500 shrink-0 mt-0.5" /> {user.address}</p>
             </div>
 
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleOpenModal(user)}
-              className="w-full text-xs mt-2"
+              className="w-full text-xs mt-2 border-slate-200 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
             >
               Update Status
             </Button>
@@ -208,33 +211,29 @@ export default function UserTable({ users }: UserTableProps) {
 
       {/* Status Action Confirmation Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 text-slate-900 dark:text-white">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-slate-900">
+            <DialogTitle className="flex items-center gap-2 text-slate-900 dark:text-white">
               {selectedUser?.accountStatus === "ACTIVE" ? (
-                <ShieldAlert className="w-5 h-5 text-rose-600" />
+                <ShieldAlert className="w-5 h-5 text-rose-600 dark:text-rose-500" />
               ) : (
-                <Shield className="w-5 h-5 text-emerald-600" />
+                <Shield className="w-5 h-5 text-emerald-600 dark:text-emerald-500" />
               )}
               {selectedUser?.accountStatus === "ACTIVE" ? "Suspend Account" : "Reactivate Account"}
             </DialogTitle>
-            <DialogDescription className="text-slate-600 pt-2">
+            <DialogDescription className="text-slate-600 dark:text-zinc-400 pt-2">
               Are you sure you want to change status for{" "}
-              <span className="font-semibold text-slate-900">{selectedUser?.name}</span>?
-              {/* {selectedUser?.accountStatus === "ACTIVE" ? (
-                <span className="mt-4 text-xs bg-rose-50 text-rose-700 p-2.5 rounded-lg border border-rose-200">
-                  ⚠️ This user will be blocked from the platform.
-                </span>
-              ) : (
-                <p className="mt-2 text-xs bg-emerald-50 text-emerald-700 p-2.5 rounded-lg border border-emerald-200">
-                  ✅ Access will be restored, allowing full platform features.
-                </p>
-              )} */}
+              <span className="font-semibold text-slate-900 dark:text-zinc-100">{selectedUser?.name}</span>?
             </DialogDescription>
           </DialogHeader>
 
           <DialogFooter className="gap-2 sm:gap-0 mt-4">
-            <Button variant="ghost" onClick={() => setIsOpen(false)} disabled={isUpdating}>
+            <Button 
+              variant="ghost" 
+              onClick={() => setIsOpen(false)} 
+              disabled={isUpdating}
+              className="dark:text-zinc-300 dark:hover:bg-zinc-800"
+            >
               Cancel
             </Button>
             <Button

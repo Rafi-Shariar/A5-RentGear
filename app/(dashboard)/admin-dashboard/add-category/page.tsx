@@ -44,51 +44,51 @@ const AddNewCategory = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-xl border border-gray-100 shadow-sm space-y-4">
-      <div className="space-y-1">
-        <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-          <FolderPlus className="w-5 h-5 text-primary" /> Create New Category
-        </h2>
-        <p className="text-xs text-gray-500">
-          Enter a unique category name for grouping gear items.
-        </p>
-      </div>
+    <div className="max-w-md mx-auto p-6 bg-white dark:bg-zinc-900 rounded-xl border border-gray-100 dark:border-zinc-800 shadow-sm space-y-4 transition-colors">
+  <div className="space-y-1">
+    <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+      <FolderPlus className="w-5 h-5 text-primary" /> Create New Category
+    </h2>
+    <p className="text-xs text-gray-500 dark:text-zinc-400">
+      Enter a unique category name for grouping gear items.
+    </p>
+  </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-            Category Name *
-          </label>
-          <Input
-            type="text"
-            value={categoryName}
-            onChange={(e) => {
-              setCategoryName(e.target.value);
-              if (error) setError(null);
-            }}
-            placeholder="e.g. Backpacks & Bags, Tents, Cameras"
-            className="w-full text-sm"
-          />
-          {error && (
-            <p className="text-xs text-red-500 mt-1.5">{error}</p>
-          )}
-        </div>
-
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full font-medium flex items-center justify-center gap-2"
-        >
-          {isSubmitting ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" /> Adding...
-            </>
-          ) : (
-            "Add Category"
-          )}
-        </Button>
-      </form>
+  <form onSubmit={handleSubmit} className="space-y-4">
+    <div>
+      <label className="block text-xs font-semibold text-gray-700 dark:text-zinc-200 mb-1.5">
+        Category Name *
+      </label>
+      <Input
+        type="text"
+        value={categoryName}
+        onChange={(e) => {
+          setCategoryName(e.target.value);
+          if (error) setError(null);
+        }}
+        placeholder="e.g. Backpacks & Bags, Tents, Cameras"
+        className="w-full text-sm bg-white dark:bg-zinc-800 text-gray-900 dark:text-white border-gray-200 dark:border-zinc-700 placeholder:text-gray-400 dark:placeholder:text-zinc-500 focus-visible:ring-primary"
+      />
+      {error && (
+        <p className="text-xs text-red-500 dark:text-red-400 mt-1.5">{error}</p>
+      )}
     </div>
+
+    <Button
+      type="submit"
+      disabled={isSubmitting}
+      className="w-full font-medium flex items-center justify-center gap-2"
+    >
+      {isSubmitting ? (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin" /> Adding...
+        </>
+      ) : (
+        "Add Category"
+      )}
+    </Button>
+  </form>
+</div>
   );
 };
 

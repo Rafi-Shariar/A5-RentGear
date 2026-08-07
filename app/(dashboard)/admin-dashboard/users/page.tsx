@@ -12,7 +12,7 @@ export default async function UserListPage() {
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2 dark:text-slate-300">
             <Users className="w-6 h-6 text-primary" /> User Management
           </h1>
           <p className="text-xs text-slate-500 mt-1">
