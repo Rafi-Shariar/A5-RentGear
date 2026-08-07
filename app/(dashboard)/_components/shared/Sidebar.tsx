@@ -11,6 +11,8 @@ import Image from "next/image";
 import logo from "@/assets/logo.png";
 import { sidebarMenuItems } from "../../_config/sidebarMenuItems";
 import { logout } from "@/services/logout";
+import { ThemeToggleButton } from "@/components/shared/ThemeToggleButton";
+import { DashboardThemeToggle } from "@/components/shared/DashboardThemToggleButton";
 
 // Mobile Drawer State Management via lightweight Zustand
 interface SidebarState {
@@ -128,6 +130,15 @@ export default function Sidebar() {
 
           {/* Bottom Section: Profile & Action Buttons */}
           <div className="flex flex-col gap-3 pt-4 border-t border-zinc-800/80">
+
+          {/* <div className="flex items-center text-sm font-medium text-zinc-400 hover:bg-zinc-800/70 hover:text-white transition-all duration-200">
+              <h1>Theme: </h1>
+               <ThemeToggleButton/>
+                
+               
+              </div> */}
+            
+            <DashboardThemeToggle/>
             
 
             {/* Action Buttons */}
@@ -141,6 +152,8 @@ export default function Sidebar() {
                 <Globe className="h-4 w-4 shrink-0" />
                 <span>Back to Website</span>
               </Link>
+
+              
 
               {/* Logout Button */}
               <button

@@ -16,14 +16,14 @@ const AddNewGearPage = async () => {
       <div className="flex items-center justify-between">
         <Link
           href="/dashboard/provider/my-gears"
-          className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to My Inventory
         </Link>
       </div>
 
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-gray-900">Add New Gear</h1>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-primary">Add New Gear</h1>
         <p className="text-sm text-gray-500">
           List a new equipment item for customers to rent.
         </p>

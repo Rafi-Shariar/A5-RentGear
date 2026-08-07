@@ -116,14 +116,14 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
         {/* Left Column: Details */}
         <div className="lg:col-span-2 space-y-6">
           {/* Basic Details */}
-          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4">
-            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
-              <Package className="w-4 h-4 text-primary" /> Basic Gear Details
+          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4 dark:bg-zinc-900 dark:border-gray-500">
+            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2 dark:text-gray-300">
+              <Package className="w-4 h-4 text-primary " /> Basic Gear Details
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs dark:text-gray-300 font-semibold text-gray-700 mb-1">
                   Brand Name *
                 </label>
                 <input
@@ -138,7 +138,7 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs dark:text-gray-300 font-semibold text-gray-700 mb-1">
                   Category *
                 </label>
                 <select
@@ -146,7 +146,7 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
                   value={formData.categoryId}
                   onChange={handleChange}
                   required
-                  className="w-full text-sm border border-gray-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white"
+                  className="w-full text-sm border border-gray-200 rounded-lg p-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white dark:bg-zinc-900"
                 >
                   <option value="">Select Category</option>
                   {categories.map((cat : IAddNewGear) => (
@@ -159,7 +159,7 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
+              <label className="block text-xs dark:text-gray-300 font-semibold text-gray-700 mb-1">
                 Gear Title *
               </label>
               <input
@@ -174,7 +174,7 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
+              <label className="block text-xs dark:text-gray-300 font-semibold text-gray-700 mb-1">
                 Description *
               </label>
               <textarea
@@ -190,14 +190,14 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
           </div>
 
           {/* Pricing & Stock */}
-          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4">
-            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
+          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4 dark:bg-zinc-900 dark:border-gray-600">
+            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2 dark:text-gray-300 ">
               <Tag className="w-4 h-4 text-primary" /> Rental Pricing & Inventory
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs dark:text-gray-300 font-semibold text-gray-700 mb-1">
                   Daily Rental Price ($) *
                 </label>
                 <input
@@ -232,8 +232,8 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
 
         {/* Right Column: Image & Submit */}
         <div className="space-y-6">
-          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4">
-            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2">
+          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm space-y-4 dark:bg-zinc-900">
+            <h2 className="text-base font-semibold text-gray-900 border-b border-gray-100 pb-3 flex items-center gap-2 dark:text-gray-300">
               <ImagePlus className="w-4 h-4 text-primary" /> Gear Photo
             </h2>
 
@@ -255,10 +255,10 @@ const AddNewGearForm =  ( {categories} : IAddNewGearFromProp) => {
                   </button>
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50/50 hover:bg-gray-100/50 hover:border-primary/50 transition-all">
+                <label className="flex flex-col items-center justify-center w-full h-56 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50/50 hover:bg-gray-100/50 hover:border-primary/50 transition-all dark:bg-zinc-800">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
                     <UploadCloud className="w-10 h-10 text-gray-400 mb-3" />
-                    <p className="text-sm font-medium text-gray-700">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Click to upload gear photo
                     </p>
                     <p className="text-xs text-gray-400 mt-1">PNG, JPG or WEBP (Max 5MB)</p>
