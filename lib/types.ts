@@ -372,3 +372,11 @@ export interface IUpdatePasswordPayload {
   newPassword : string;
 
 }
+
+
+export interface GoogleJWTPayload {
+  email: string;
+  name: string;
+  picture?: string;
+  sub: string; // Google Unique ID
+}

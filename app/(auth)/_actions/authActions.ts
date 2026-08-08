@@ -133,3 +133,83 @@ export const LoginAction = async (
 
   
 };
+
+
+export interface IGoogleAuthPayload {
+  email: string;
+  name: string;
+  photoURL?: string;
+  googleId: string;
+}
+
+export const GoogleLoginAction = async (
+  googlePayload: IGoogleAuthPayload,
+  redirectTo?: string
+) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_HOST}/api/auth/google-login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(googlePayload),
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      const decodedToken = jwt.decode(result.data.accessToken) as JwtPayload;
+
+      // Security Check: Google login is strictly restricted to CUSTOMER role
+      if (decodedToken?.role !== "CUSTOMER") {
+        return {
+          success: false,
+          message: "Google login is only allowed for Customers.",
+        };
+      }
+
+      const cookieStore = await cookies();
+
+      // Set Access Token & Refresh Token in HTTP-only cookies
+      cookieStore.set("accessToken", result.data.accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 60 * 60 * 24,
+      });
+
+      if (result.data.refreshToken) {
+        cookieStore.set("refreshToken", result.data.refreshToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          maxAge: 60 * 60 * 24 * 7,
+        });
+      }
+
+      let targetPath = "/dashboard";
+
+      if (
+        redirectTo &&
+        typeof redirectTo === "string" &&
+        redirectTo.startsWith("/") &&
+        !redirectTo.startsWith("//")
+      ) {
+        targetPath = redirectTo;
+      }
+
+      return {
+        ...result,
+        redirectTo: targetPath,
+      };
+    }
+
+    return result;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Something went wrong during Google Login",
+    };
+  }
+};

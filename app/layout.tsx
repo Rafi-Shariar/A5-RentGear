@@ -9,6 +9,7 @@ import { GlobalScrollReset } from "@/components/shared/ScrollToTop";
 import TanstackProvider from "@/providers/tanstackProvider";
 import SWRProvider from "@/providers/SWRProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import GoogleAuthProvider from "@/providers/GoogleAuthProvider";
 
 const robotoHeading = Roboto({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default async function RootLayout({
         inter.variable,
         robotoHeading.variable,
       )}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <UserStoreInitializer user={user} />
@@ -51,7 +53,10 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
             >
-            {children}
+              <GoogleAuthProvider>
+                        {children}
+              </GoogleAuthProvider>
+            
             </ThemeProvider>
             </SWRProvider>
         </TanstackProvider>

@@ -227,7 +227,7 @@ const RegisterForm = () => {
         >
           <option value="CUSTOMER">CUSTOMER</option>
           <option value="PROVIDER">PROVIDER</option>
-          <option value="ADMIN">ADMIN</option>
+          {/* <option value="ADMIN">ADMIN</option> */}
 
          
         </select>

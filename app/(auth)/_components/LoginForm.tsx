@@ -14,6 +14,7 @@ import { LoginAction } from "../_actions/authActions";
 import { loginSchema, LoginInput } from "@/lib/validations/auth";
 import { useUserStore } from "@/lib/store/useUserStore";
 import { getMe } from "@/services/getMe";
+import GoogleLoginButton from "./GoogleLoginButon";
 
 const LoginForm = () => {
   const { setUser } = useUserStore();
@@ -49,12 +50,9 @@ const LoginForm = () => {
         toast.success(result.message || "Login successful!");
         const user = await getMe();
         setUser(user);
-      
+
         router.refresh();
-        setTimeout(()=>[
-          router.push(result.redirectTo || "/")
-        ],100)
-          
+        setTimeout(() => [router.push(result.redirectTo || "/")], 100);
       } else {
         toast.error(result?.message || "Invalid credentials!");
       }
@@ -120,6 +118,21 @@ const LoginForm = () => {
           "Sign In"
         )}
       </Button>
+
+      {/* Divider */}
+      <div className="relative my-4">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-200 dark:border-zinc-800" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-white dark:bg-zinc-900 px-2 text-gray-500 dark:text-zinc-400">
+            Or continue with
+          </span>
+        </div>
+      </div>
+
+      {/* Google Login Component */}
+      <GoogleLoginButton />
     </form>
   );
 };
