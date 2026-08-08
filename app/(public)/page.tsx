@@ -1,5 +1,6 @@
 
 import CategoryCarousel from "./_components/CategorySection";
+import FAQSection from "./_components/FAQSection";
 import HeroCard from "./_components/HeroCard";
 import HowItWorksSection from "./_components/HowItWorksSection";
 import Impact from "./_components/Impact";
@@ -21,6 +22,7 @@ export default function Home() {
       <WhyChooseUs/>
       <Impact/>
       <NewsletterSection/>
+      <FAQSection/>
 
     </div>
   );
