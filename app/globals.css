@@ -127,3 +127,10 @@
     @apply font-sans;
   }
 }
+
+/* Swiper Continuous Non-stop Smooth Motion */
+.category-swiper .swiper-wrapper {
+  -webkit-transition-timing-function: linear !important;
+  -o-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
+}

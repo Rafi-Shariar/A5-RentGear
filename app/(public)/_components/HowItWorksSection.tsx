@@ -95,7 +95,7 @@ export const HowItWorksSection = () => {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 md:mb-16 space-y-3">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-4xl font-extrabold text-foreground tracking-tight">
             <span className="text-primary">How It</span> Works
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base">

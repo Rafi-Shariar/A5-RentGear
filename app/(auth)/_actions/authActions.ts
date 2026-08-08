@@ -147,7 +147,7 @@ export const GoogleLoginAction = async (
   redirectTo?: string
 ) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_LOCAL_HOST}/api/auth/google-login`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/auth/google-login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
