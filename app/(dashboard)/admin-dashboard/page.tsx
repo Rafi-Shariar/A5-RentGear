@@ -12,6 +12,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getAdminOverview } from "../_actions/admin_actions/overviewAction";
+import DailyOrdersChart from "../_components/admin/DailyOrderChart";
 
 const AdminPage = async () => {
 
@@ -137,6 +138,8 @@ const AdminPage = async () => {
           </div>
         </div>
       </div>
+
+      <DailyOrdersChart/>
     </div>
   );
 };

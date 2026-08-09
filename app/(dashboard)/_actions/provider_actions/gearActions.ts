@@ -53,7 +53,7 @@ export const addNewGearAction = async (payload : INewGearPayload) => {
 };
 
 
-export const getMyGearListAction = async () => {
+export const getMyGearListAction = async (searchTerm?: string) => {
   const accessToken = await isAccessTokenExits();
 
   if (!accessToken || accessToken === "undefined" || accessToken === "null") {
@@ -64,12 +64,15 @@ export const getMyGearListAction = async () => {
     };
   }
 
+  const queryParam = searchTerm ? `?searchTerm=${encodeURIComponent(searchTerm)}` : "";
+
   try {
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/provider`, {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/provider${queryParam}`, {
       method: "GET",
       headers: {
         Cookie: `accessToken=${accessToken}`,
-      }
+      },
+      cache : "no-store"
     });
 
     const result = await res.json();

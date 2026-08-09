@@ -1,15 +1,18 @@
-
 import { ListChecks } from "lucide-react";
-
 import { getMyGearListAction } from "../../_actions/provider_actions/gearActions";
 import { GearTable } from "../../_components/provider/GearTable";
+import { ProviderGearSearch } from "../../_components/provider/ProviderGearSearch";
 
-export default async function MyGearsPage() {
-  const res = await getMyGearListAction();
-  const gears = res.data.gears || [];
-  const totalGears = res.data.totalGears || 0;
+export default async function MyGearsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ searchTerm?: string }>;
+}) {
+  const query = await searchParams;
+  const res = await getMyGearListAction(query?.searchTerm);
 
-  
+  const gears = res?.data?.gears || [];
+  const totalGears = res?.data?.totalGears || 0;
 
   return (
     <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-6">
@@ -31,7 +34,13 @@ export default async function MyGearsPage() {
         </div>
       </div>
 
-      <GearTable gears={gears}/>
+      {/* 🟢 Search Component */}
+      <div className="flex justify-end">
+        <ProviderGearSearch />
+      </div>
+
+      {/* Gears Table */}
+      <GearTable gears={gears} />
     </div>
   );
 }

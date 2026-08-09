@@ -2,23 +2,26 @@
 import { isAccessTokenExits } from "@/services/getAccessToken";
 import { revalidatePath } from "next/cache";
 
-export const getUserList = async () => {
+export const getUserList = async (email?: string) => {
   const accessToken = await isAccessTokenExits();
 
   if (!accessToken || accessToken === "undefined" || accessToken === "null") {
     return {
       success: false,
       data: null,
-      error: "You must be logged in get user list.",
+      error: "You must be logged in to get user list.",
     };
   }
 
+  const queryParam = email ? `?email=${encodeURIComponent(email)}` : "";
+
   try {
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/admin/users`, {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/admin/users${queryParam}`, {
       method: "GET",
       headers: {
         Cookie: `accessToken=${accessToken}`,
       },
+      cache: "no-store", 
     });
 
     const result = await res.json();
@@ -33,7 +36,7 @@ export const getUserList = async () => {
 
     return {
       success: false,
-      message: result?.message || "Failed to retrieved user list.",
+      message: result?.message || "Failed to retrieve user list.",
     };
   } catch (error) {
     console.error("Get User list Error : ", error);

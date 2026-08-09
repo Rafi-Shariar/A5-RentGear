@@ -1,10 +1,16 @@
-
 import { Users } from "lucide-react";
 import { getUserList } from "../../_actions/admin_actions/userActions";
 import UserTable from "../../_components/admin/UserTable";
+import { UserEmailSearch } from "../../_components/admin/EmailSearchBox";
 
-export default async function UserListPage() {
-  const res = await getUserList();
+
+export default async function UserListPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ email?: string }>;
+}) {
+  const query = await searchParams;
+  const res = await getUserList(query?.email);
   const users = res.data || [];
 
   return (
@@ -25,6 +31,11 @@ export default async function UserListPage() {
             {users.length}
           </span>
         </div>
+      </div>
+
+      {/* 🟢 Email Search Component with Button */}
+      <div className="flex justify-end">
+        <UserEmailSearch />
       </div>
 
       {/* Responsive Table/Card View */}
