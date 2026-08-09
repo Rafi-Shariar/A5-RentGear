@@ -2,14 +2,26 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { CreditCard, ArrowRight, Loader2, CheckCircle2, Clock } from "lucide-react";
+import { CreditCard, ArrowRight, Loader2, CheckCircle2, Clock, SearchIcon, RotateCcw } from "lucide-react";
 import { PaymentItem } from "@/lib/types";
 import { getMyPayments } from "../../_actions/customer_actions/paymentAction";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function PaymentHistoryPage() {
+
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [payments, setPayments] = useState<PaymentItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
+
+  const searchParams = useSearchParams()
+  const currentSearchTerm = searchParams.get('searchTerm') || ""
+
+  const [searchValue, setSearchValue] = useState<string>(currentSearchTerm);
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -17,7 +29,7 @@ export default function PaymentHistoryPage() {
         setIsLoading(true);
         setIsError(false);
         
-        const res = await getMyPayments();
+        const res = await getMyPayments(currentSearchTerm);
 
         // console.log(res.data);
         
@@ -36,7 +48,27 @@ export default function PaymentHistoryPage() {
     };
 
     fetchPayments();
-  }, []);
+  }, [currentSearchTerm]);
+
+  const handleSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (searchValue.trim()) {
+      params.set("searchTerm", searchValue.trim());
+    } else {
+      params.delete("searchTerm");
+    }
+
+    router.replace(`${pathname}?${params.toString()}`);
+  };
+
+  // Reset Handler
+  const handleReset = () => {
+    setSearchValue("");
+    router.replace(pathname);
+  };
 
   if (isLoading) {
     return (
@@ -64,6 +96,42 @@ export default function PaymentHistoryPage() {
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           View all your previous rental transactions and payment receipts.
         </p>
+      </div>
+
+      <div>
+        <form onSubmit={handleSearch} className="flex items-center gap-2 w-full sm:w-auto">
+          <div className="relative w-full sm:w-72">
+            <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-zinc-400" />
+            <Input
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Paste Order ID..."
+              className="pl-9 h-10 rounded-xl bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-sm"
+            />
+          </div>
+
+          {/* Search Action Button */}
+          <Button
+            type="submit"
+            className="h-10 px-4 rounded-xl bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200 shrink-0 text-xs font-semibold"
+          >
+            Search
+          </Button>
+
+          {/* Reset Button (যাতে ফিল্টার মোছার প্রয়োজন হলে সহজে করা যায়) */}
+          {currentSearchTerm && (
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={handleReset}
+              title="Reset Search"
+              className="h-10 w-10 rounded-xl shrink-0"
+            >
+              <RotateCcw className="w-4 h-4 text-zinc-500" />
+            </Button>
+          )}
+        </form>
       </div>
 
       {/* Table Container */}

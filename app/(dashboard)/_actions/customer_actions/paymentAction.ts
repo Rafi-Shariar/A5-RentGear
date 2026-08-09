@@ -76,7 +76,7 @@ export const getPaymentDetails = async( id : string) =>{
 }
 
 
-export const getMyPayments = async( ) =>{
+export const getMyPayments = async( searchTerm ?: string ) =>{
 
   const accessToken = await isAccessTokenExits();
 
@@ -84,13 +84,16 @@ export const getMyPayments = async( ) =>{
     throw new Error("You must be logged in.");
   }
 
+  const queryParam = searchTerm ? `?searchTerm=${searchTerm}` : "";
+
   try {
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/payments/`, {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/payments${queryParam}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Cookie: `accessToken=${accessToken}`,
       },
+      cache : "no-cache"
     });
 
     if (!res.ok) {
