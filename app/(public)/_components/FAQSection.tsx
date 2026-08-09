@@ -58,7 +58,7 @@ export default function FAQSection() {
       </div>
 
       {/* shadcn Accordion */}
-      <div className="bg-white dark:bg-zinc-900/60 border border-gray-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+      <div className="">
         <Accordion type="single" collapsible className="w-full space-y-2">
           {FAQS.map((faq) => (
             <AccordionItem

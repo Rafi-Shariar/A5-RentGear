@@ -1,12 +1,17 @@
-'use client'
-
+"use client"
 import React from "react";
 import { OrdersTable } from "../../_components/customer/my_orders/OrdersTable";
 import { useCustomerOrders } from "../../_hooks/useCustomerOrders";
 import { Loader2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { OrderFilters } from "../../_components/customer/my_orders/OrderFilters";
 
 export default function MyOrdersPage() {
-  const { data: orders = [], isLoading, isError, error } = useCustomerOrders();
+
+  const searchParams = useSearchParams();
+  const currentStatus = searchParams.get("status") || "ALL"
+
+  const { data: orders = [], isLoading, isError, error } = useCustomerOrders(currentStatus);
 
   return (
     <div className="space-y-6">
@@ -19,6 +24,8 @@ export default function MyOrdersPage() {
           Manage your equipment rentals, view order status, and leave reviews.
         </p>
       </div>
+
+      <OrderFilters/>
 
       {/* 🟢 1. Loading State (isLoading/isPending) */}
       {isLoading && (

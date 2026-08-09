@@ -3,7 +3,7 @@ import { isAccessTokenExits } from "@/services/getAccessToken";
 import { revalidateTag } from "next/cache";
 
 
-export const getCustomerOrders = async () => {
+export const getCustomerOrders = async (status : string) => {
 
   const accessToken = await isAccessTokenExits();
 
@@ -11,15 +11,18 @@ export const getCustomerOrders = async () => {
     throw new Error("You must be logged in to view your orders.")
   }
 
+  const queryParam = status && status !== "ALL" ? `?status=${status}` : "";
+
 
   try {
 
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/rentals`, {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/rentals${queryParam}`, {
         method : "GET",
        headers:{
         "Content-Type" : "application/json",
          Cookie : `accessToken=${accessToken}`
        },
+       cache : "no-store"
        
     })
 
