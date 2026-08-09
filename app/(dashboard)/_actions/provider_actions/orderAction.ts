@@ -3,7 +3,10 @@
 import { isAccessTokenExits } from "@/services/getAccessToken";
 import { revalidatePath } from "next/cache";
 
-export const getMyOrdersAction = async () => {
+export const getMyOrdersAction = async (query?: {
+  customerEmail?: string;
+  status?: string;
+}) => {
   const accessToken = await isAccessTokenExits();
 
   if (!accessToken || accessToken === "undefined" || accessToken === "null") {
@@ -14,23 +17,31 @@ export const getMyOrdersAction = async () => {
     };
   }
 
+  // Build Dynamic Query Parameters
+  const params = new URLSearchParams();
+  if (query?.customerEmail) params.append("customerEmail", query.customerEmail);
+  if (query?.status && query.status !== "ALL") params.append("status", query.status);
+
+  const queryString = params.toString() ? `?${params.toString()}` : "";
+
   try {
-    const res = await fetch(`${process.env.BACKEND_API_URL}/api/provider/orders`, {
+    const res = await fetch(`${process.env.BACKEND_API_URL}/api/provider/orders${queryString}`, {
       method: "GET",
       headers: {
         Cookie: `accessToken=${accessToken}`,
-      }
+      },
+      cache: "no-store", // Ensure real-time query updates
     });
 
     const result = await res.json();
 
     if (res.ok && result.success) {
-       return result;
+      return result;
     }
 
     return {
       success: false,
-      message: "Failed to retrieved order list.",
+      message: "Failed to retrieve order list.",
     };
   } catch (error) {
     console.error("Get Provider Gear list Error : ", error);
@@ -40,7 +51,6 @@ export const getMyOrdersAction = async () => {
     };
   }
 };
-
 
 export const updateOrderStatusAction = async (orderId : string, status : string) => {
   const accessToken = await isAccessTokenExits();

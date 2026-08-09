@@ -151,8 +151,8 @@ export const ProviderOrdersTable = ({ orders }: ProviderOrdersTableProps) => {
                         {order.user.name}
                       </p>
                       <p className="text-zinc-500 flex items-center gap-1">
-                        <Phone className="h-3 w-3 text-zinc-400" />
-                        {order.user.phoneNumber}
+                        <Mail className="h-3 w-3 text-zinc-400" />
+                        {order.user.email}
                       </p>
                     </div>
                   </td>

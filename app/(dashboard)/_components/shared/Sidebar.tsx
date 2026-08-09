@@ -145,14 +145,7 @@ export default function Sidebar() {
             {/* Action Buttons */}
             <div className="flex flex-col gap-1">
 
-              <Link
-                href="/dashbaord/my-profile"
-                onClick={close}
-                className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-zinc-400 hover:bg-zinc-800/70 hover:text-white transition-all duration-200"
-              >
-                <Globe className="h-4 w-4 shrink-0" />
-                <span>Update Profile Info</span>
-              </Link>
+            
               {/* Back to Website */}
               <Link
                 href="/"
